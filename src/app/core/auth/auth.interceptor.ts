@@ -26,11 +26,11 @@ export const authInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn):
     // catch and delete the access token from the local storage while logging
     // the user out from the app.
     if ( authService.accessToken && !AuthUtils.isTokenExpired(authService.accessToken) )
-    {
-        newReq = req.clone({
-            headers: req.headers.set('Authorization', 'Bearer ' + authService.accessToken),
-        });
-    }
+        {
+            newReq = req.clone({
+                headers: req.headers.append('Authorization','Bearer '+localStorage.getItem('token')),
+            });
+        }
 
     // Response
     return next(newReq).pipe(

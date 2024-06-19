@@ -2,22 +2,65 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
-import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import { User } from 'app/models/User';
+import { SuperService } from 'app/services/super.service';
+import { catchError, Observable, of, switchMap, tap, throwError } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class AuthService
+export class AuthService extends SuperService<User>
 {
     private _authenticated: boolean = false;
+    private token: string;
 
     /**
      * Constructor
      */
     constructor(
+
         private _httpClient: HttpClient,
         private _userService: UserService,
-    )
-    {
+        )
+        {
+        super('account');
     }
+
+
+    setToken(token: string): void {
+        this.token = token;
+    }
+
+    getToken(): string {
+        return this.token;
+    }
+
+    isAuthenticated(): boolean {
+        return !!this.token;
+    }
+
+    logout(): void {
+        localStorage.removeItem('token');
+        // Other cleanup tasks if necessary
+    }
+
+
+      signUp(user:User): Observable<any> {
+        return this.http.post(`${this.urlApi}/${this.controller}/register`, user);
+
+      }
+
+      login(user: User): Observable<any> {
+        return this.http.post<any>(`${this.urlApi}/${this.controller}/login`, user)
+          .pipe(
+            tap(response => {
+                console.log("from api")
+              console.log('Response:', response);
+              if(response.code===1){
+                this._authenticated=true
+              }
+              // Perform actions based on the response
+            })
+          );
+      }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
@@ -137,7 +180,7 @@ export class AuthService
     signOut(): Observable<any>
     {
         // Remove the access token from the local storage
-        localStorage.removeItem('accessToken');
+        localStorage.removeItem('token');
 
         // Set the authenticated flag to false
         this._authenticated = false;
@@ -151,10 +194,7 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
-    {
-        return this._httpClient.post('api/auth/sign-up', user);
-    }
+
 
     /**
      * Unlock session
@@ -193,3 +233,5 @@ export class AuthService
         return this.signInUsingToken();
     }
 }
+
+

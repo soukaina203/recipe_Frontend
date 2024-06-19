@@ -1,5 +1,8 @@
+import { FuseAlertType } from './../../../../@fuse/components/alert/alert.types';
+import { FuseAlertComponent } from './../../../../@fuse/components/alert/alert.component';
+import { fuseAnimations } from './../../../../@fuse/animations/public-api';
 import { NgIf } from '@angular/common';
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -8,28 +11,42 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
-import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
-
+import {
+    MatDialog,
+    MatDialogRef,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent,
+} from '@angular/material/dialog';
 @Component({
-    selector     : 'auth-sign-up',
-    templateUrl  : './sign-up.component.html',
+    selector: 'auth-sign-up',
+    templateUrl: './sign-up.component.html',
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations,
-    standalone   : true,
-    imports      : [RouterLink, NgIf, FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule],
+    animations: fuseAnimations,
+    standalone: true,
+    imports: [RouterLink, NgIf,
+
+        FuseAlertComponent,
+        FormsModule, ReactiveFormsModule, MatFormFieldModule,
+        MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatProgressSpinnerModule
+
+    ],
 })
-export class AuthSignUpComponent implements OnInit
-{
-    @ViewChild('signUpNgForm') signUpNgForm: NgForm;
+export class AuthSignUpComponent implements OnInit {
+    signUpForm!: UntypedFormGroup;
+    // @ViewChild('signUpNgForm') signUpNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {
-        type   : 'success',
+        type: 'success',
         message: '',
     };
-    signUpForm: UntypedFormGroup;
+
     showAlert: boolean = false;
+    isValidated: boolean;
+    @ViewChild('popupTemplate') popupTemplate!: TemplateRef<any>;
+
 
     /**
      * Constructor
@@ -38,8 +55,10 @@ export class AuthSignUpComponent implements OnInit
         private _authService: AuthService,
         private _formBuilder: UntypedFormBuilder,
         private _router: Router,
-    )
-    {
+        private dialog: MatDialog,
+
+
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -49,16 +68,25 @@ export class AuthSignUpComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    get email() {
+        return this.signUpForm.get('email');
+    }
+    ngOnInit(): void {
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                name      : ['', Validators.required],
-                email     : ['', [Validators.required, Validators.email]],
-                password  : ['', Validators.required],
-                company   : [''],
-                agreements: ['', Validators.requiredTrue],
-            },
+            nom: ['', Validators.required],
+            email: ['', [
+                Validators.required,
+                Validators.email,
+                Validators.pattern('^.+@(gmail.com|outlook.fr)$'),
+
+            ]],
+            password: ['', [Validators.required, Validators.minLength(8)]],
+            prenom: ['', [Validators.required]],
+            image:"",
+            isAdmin:0
+
+        },
         );
     }
 
@@ -69,13 +97,12 @@ export class AuthSignUpComponent implements OnInit
     /**
      * Sign up
      */
-    signUp(): void
-    {
+
+    signUp(): void {
         // Do nothing if the form is invalid
-        if ( this.signUpForm.invalid )
-        {
-            return;
-        }
+        // if (this.signUpForm.invalid) {
+        //     return;
+        // }
 
         // Disable the form
         this.signUpForm.disable();
@@ -86,28 +113,32 @@ export class AuthSignUpComponent implements OnInit
         // Sign up
         this._authService.signUp(this.signUpForm.value)
             .subscribe(
-                (response) =>
-                {
+                (res) => {
+
+                    if (res.code === -1) {
+                        this.isValidated = false;
+
+                        this.openDialog();
+                        this.signUpForm.enable()
+
+                        // put a dialog here
+                    } else {
+                        this._router.navigateByUrl('login');
+                    }
                     // Navigate to the confirmation required page
-                    this._router.navigateByUrl('/confirmation-required');
-                },
-                (response) =>
-                {
-                    // Re-enable the form
-                    this.signUpForm.enable();
+                }
 
-                    // Reset the form
-                    this.signUpNgForm.resetForm();
-
-                    // Set the alert
-                    this.alert = {
-                        type   : 'error',
-                        message: 'Something went wrong, please try again.',
-                    };
-
-                    // Show the alert
-                    this.showAlert = true;
-                },
             );
+    }
+    openDialog(): void {
+        console.log("i am in dialog")
+        const dialogRef = this.dialog.open(this.popupTemplate, {
+            height: '340px',
+            width: '500px'
+            // Set width and other configuration options if needed
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('Dialog closed:', result);
+        });
     }
 }

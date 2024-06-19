@@ -1,0 +1,133 @@
+<div class="flex flex-col w-full">
+
+    <!-- Edit mode -->
+
+    <ng-container>
+
+        <!-- Contact form -->
+        <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
+            <div class="w-full max-w-3xl">
+                <form [formGroup]="myForm" *ngIf="myForm">
+
+
+
+
+                    <div class="mt-2">
+                        <!-- <div class="space-y-4"> -->
+                        <h1 class="mt-6 mb-10 ml-1 text-3xl font-semibold text-[#8B7F87]"> Creation d'un utilisateur
+                        </h1>
+
+
+                        <div class="flex items-center justify-center ">
+
+                            <app-upload-fa-image formControlName="image" folder="recipes" [multiple]="false" />
+                        </div>
+
+                        <ng-container>
+                            <div class="flex mt-4">
+                                <mat-form-field class="flex-auto ">
+                                    <mat-label>Title</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+
+                                    <input matInput formControlName="title">
+
+                                </mat-form-field>
+
+
+
+                            </div>
+                        </ng-container>
+                        <!-- </div> -->
+                    </div>
+
+
+
+                    <div class="flex">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto">
+                            <mat-label>Description</mat-label>
+                            <textarea
+                                matInput
+                                cdkTextareaAutosize
+                                formControlName="description"
+                                [cdkAutosizeMinRows]="3"></textarea>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="flex">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto">
+                            <mat-label>Ingredients</mat-label>
+                            <textarea
+                                matInput
+                                cdkTextareaAutosize
+                                formControlName="ingredients"
+                                [cdkAutosizeMinRows]="3"></textarea>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="flex">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto">
+                            <mat-label>Instructions</mat-label>
+                            <textarea
+                                matInput
+                                cdkTextareaAutosize
+                                formControlName="instructions"
+                                [cdkAutosizeMinRows]="3"></textarea>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+
+
+
+                    <div class="mt-2">
+                        <mat-form-field class="w-full mt-2 " [subscriptSizing]="'dynamic'">
+                            <mat-label>Categories</mat-label>
+
+                            <mat-select [formControlName]="'idCategory'">
+                                <ng-container *ngFor="let category of categories">
+                                    <mat-option [value]="category.id">{{category}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div
+                        class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                        <!-- Delete -->
+
+                        <!-- Cancel -->
+                        <button class="ml-auto" mat-button [matTooltip]="'Cancel'" (click)="toggleEditMode()">
+                            Annuler
+                        </button>
+                        <!-- Save -->
+                        <button class="ml-2 bg-[#2E849D] text-white" mat-flat-button [matTooltip]="'Save'"
+                            [disabled]="myForm.invalid" (click)="submit()">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-container>
+</div>

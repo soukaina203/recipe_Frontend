@@ -1,0 +1,35 @@
+<div class="example-container" *ngIf="false" class="ml-auto mr-auto">
+  <div class="example-loading-shade" *ngIf="isLoadingResults"> </div>
+  <input #file class="form-control" (change)="upload$.next(file.files)" type="file">
+  <label for="formFile" class="mt-1 form-label text-primary" *ngIf="fileName() !== ''" >
+    <span style="cursor: pointer; font-size: .8em;">{{fileName()}}</span> &nbsp;
+    <i class="bx bxs-trash-alt text-danger" style="cursor: pointer;" (click)="this.remove$.next()"></i></label>
+</div>
+
+
+<ng-container [ngTemplateOutlet]="template || defaultTemplate"
+[ngTemplateOutletContext]="{inputClick$, remove$, fileName}"></ng-container>
+
+<input hidden multiple accept="pdf/*"
+ #fileInput type="file" (click)="$event.stopPropagation()" (change)="upload$.next(fileInput.files)">
+
+<ng-template #defaultTemplate>
+  <div class="flex flex-col items-center justify-center w-full gap-5 ">
+
+    <div class="flex items-center justify-center w-full gap-3 ">
+      <div class="w-full">
+        <mat-form-field class="w-full cursor-pointer">
+
+
+          <mat-label>{{labelClass}}</mat-label>
+
+            <input type="text" matInput  (click)="fileInput.click()" [placeholder]="placeholder" class="caret-transparent">
+            <mat-icon svgIcon="heroicons_outline:arrow-up-tray" (click)="fileInput.click()"></mat-icon>
+        </mat-form-field>
+
+
+      </div>
+
+    </div>
+  </div>
+</ng-template>
