@@ -11,32 +11,34 @@ import { UploadImageFaComponent } from '@fuse/upload-file/upload-image-fa.compon
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatModule,UploadImageFaComponent],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatModule, UploadImageFaComponent],
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
     userStorage: User;
     myForm: FormGroup;
-    user:User
+    user: User
     selectedFile: File = null;
-    imageUrl=""
+    imageUrl = ""
     constructor(
         private uow: UowService,
         private route: ActivatedRoute,
         private fb: FormBuilder
         , private router: Router,
 
-      ) {}
+    ) { }
     ngOnInit(): void {
         const localStorage1 = localStorage.getItem('user');
-
         if (localStorage1) {
             this.userStorage = JSON.parse(localStorage1)
+
         }
-        this.uow.users.getOne(this.userStorage.id).subscribe((res)=>{
+        console.log("===========")
+        console.log(this.userStorage.id)
+        this.uow.users.getOne(this.userStorage.id).subscribe((res) => {
             console.log(res)
-            this.user=res
+            this.user = res
             this.createForm()
         })
 
@@ -56,8 +58,8 @@ export class ProfileComponent {
 
     onFileSelected(event: any) {
         this.selectedFile = event.target.files[0];
-        this.uow.uploads.uploadFile(this.selectedFile,"users").subscribe((res)=>{
-            this.imageUrl=res.filePath
+        this.uow.uploads.uploadFile(this.selectedFile, "users").subscribe((res) => {
+            this.imageUrl = res.filePath
             console.log(this.imageUrl)
         })
     }

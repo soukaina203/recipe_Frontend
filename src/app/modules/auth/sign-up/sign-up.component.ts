@@ -83,7 +83,7 @@ export class AuthSignUpComponent implements OnInit {
             ]],
             password: ['', [Validators.required, Validators.minLength(8)]],
             prenom: ['', [Validators.required]],
-            image:"",
+            image:"string",
             isAdmin:0
 
         },

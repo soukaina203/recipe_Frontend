@@ -3,7 +3,7 @@
         <!-- Contact form -->
         <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
             <div class="w-full max-w-3xl">
-                <form [formGroup]="myForm" *ngIf="myForm">
+                <form [formGroup]="myForm" >
                     <!-- Avatar -->
                     <!-- Avatar -->
 
@@ -12,33 +12,32 @@
                             Modify The Category
                             {{ myForm.get("nom").value }}
                         </h1>
-                        <span>If u want to change the picture click on it </span>
 
-                        <div class="flex flex-col items-center justify-center ">
+                        <div class="flex flex-col items-center justify-center gap-3 md:flex-row ">
 
-                            <ng-container *ngIf="!isModify">
-                                <img [src]="category.image === '' ? 'assets/images/pics/none.jpeg' : 'http://localhost:5228/' + category.image"
-                                    class="w-40 h-40" (click)="modifyPicture()">
-                            </ng-container>
+                                <!-- <img [src]="category.image === '' || category.image === undefined ? 'assets/images/pics/none.jpeg' :
+                                'http://localhost:5228/' + category.image"
+                                    class="w-[10.5rem] h-[11rem] m-3" > -->
                             <app-upload-fa-image formControlName="image" folder="categories" [multiple]="false" />
-                            <ng-container *ngIf="isModify">
-                                <button (click)="modifyPicture()">Cancel</button>
-                            </ng-container>
                         </div>
 
+<pre>
 
 
+    {{category| json}}
+</pre>
                     </div>
-
                     <!-- prenom -->
-                    <div class="mt-2">
-                        <mat-form-field class="w-full">
+                    <ng-container>
+                        <div class="flex mt-4">
+                          <mat-form-field class="w-full ml-2">
                             <mat-label>Nom</mat-label>
                             <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
-                            <input matInput [formControlName]="'nom'" [placeholder]="'email'" [spellcheck]="false" />
-                        </mat-form-field>
-                    </div>
+                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            <input matInput formControlName="nom" />
+                          </mat-form-field>
+                        </div>
+                      </ng-container>
 
 
 

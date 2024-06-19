@@ -20,7 +20,7 @@ import { displayImage } from 'environments/environment';
         <div class="flex mb-3 items-center" >
             <input hidden [multiple]="multiple" accept="image/*" #file1 type="file" (change)="upload($any($event.target).files)">
 
-            <div class="border-dashed border-2 border-sky-500 bg-slate-200">
+            <div class=" border-2 border-sky-300 bg-slate-200">
                 <mat-radio-group aria-label="Select an option" >
                     <div class="flex flex-wrap w-full">
                         <ng-container *ngFor="let e of dataSource; let i=index">
@@ -78,7 +78,7 @@ export class UploadImageFaComponent implements OnInit, OnDestroy, ControlValueAc
     displayImage = displayImage;
     public images: IImage[] = [];
     private uow = inject(UowService)
-    // private obj = new FormControl<IImage[]>([]);
+ private obj = new FormControl<IImage[]>([]);
     imageSubject = new Subject<boolean>();
 
     dataSource$ = this.imageSubject.asObservable().pipe(
@@ -91,7 +91,6 @@ export class UploadImageFaComponent implements OnInit, OnDestroy, ControlValueAc
 
                 // this.obj.setValue(images.filter(m => m.deleted === false), { emitEvent: true });
 
-                 console.log(images);
 
                 this.onTouched();
                 this.onChange(images);
@@ -114,10 +113,10 @@ export class UploadImageFaComponent implements OnInit, OnDestroy, ControlValueAc
     constructor() { }
 
     ngOnInit() {
-        // this.obj.valueChanges.subscribe(r => {
-        //     this.onTouched();
-        //     this.onChange(r);
-        // });
+         this.obj.valueChanges.subscribe(r => {
+             this.onTouched();
+             this.onChange(r);
+         });
     }
 
     change(e: MatRadioChange, index: number) {
@@ -129,6 +128,7 @@ export class UploadImageFaComponent implements OnInit, OnDestroy, ControlValueAc
 
     writeValue(obj: IImage[]): void {
         if(obj){
+            console.warn(obj)
             this.images.push(...obj)
             this.images.forEach(e => e.image = e.path);
                 console.log(obj);
