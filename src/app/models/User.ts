@@ -1,9 +1,9 @@
 export class User{
     id = 0
-    nom = '';
-    prenom = '';
+    nom = 'bb@gmail.com';
+    prenom = 'bb@gmail.com';
     image = '';
-    email = '';
-    password = '';
+    email = 'bb@gmail.com';
+    password = 'bb@gmail.com';
     isAdmin:number=0
 }

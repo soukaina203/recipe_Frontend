@@ -23,19 +23,19 @@ export class TestComponent {
       }
     }
 
-    preview(): void {
-      // Show preview
-      const mimeType = this.selectedFile?.type;
-      if (!mimeType?.startsWith('image/')) {
-        return;
-      }
+        preview(): void {
+        // Show preview
+        const mimeType = this.selectedFile?.type;
+        if (!mimeType?.startsWith('image/')) {
+            return;
+        }
 
-      const reader = new FileReader();
-      reader.readAsDataURL(this.selectedFile!);
-      reader.onload = () => {
-        this.previewUrl = reader.result;
-      };
-    }
+        const reader = new FileReader();
+        reader.readAsDataURL(this.selectedFile!);
+        reader.onload = () => {
+            this.previewUrl = reader.result;
+        };
+        }
 
     onUpload(): void {
       if (!this.selectedFile) {

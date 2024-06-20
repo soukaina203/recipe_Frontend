@@ -13,15 +13,52 @@
 
 
                     <div class="mt-2">
-                        <!-- <div class="space-y-4"> -->
                         <h1 class="mt-6 mb-10 ml-1 text-3xl font-semibold text-[#8B7F87]"> Creation d'un utilisateur
                         </h1>
 
 
-                        <div class="flex items-center justify-center ">
+                        <input hidden [multiple]="multiple" accept="image/*" #file1 type="file" [formControlName]="'image'"
+                            (change)="onFileSelected($event)">
 
-                            <app-upload-fa-image formControlName="image" folder="users" [multiple]="false" />
+
+                        <div class=" h-[170px] w-[170px] ml-auto mr-auto border-2 border-sky-300 bg-slate-200">
+
+
+
+                            <mat-radio-group aria-label="Select an option">
+                                <div class="flex flex-wrap w-full">
+
+                                    <div class="relative">
+
+                                        <div *ngIf="uploaded && previewUrl" class="relative">
+
+                                            <img [src]="previewUrl" alt="Image Preview"
+                                                class="bg-cover h-[173px] w-[173px]  "
+                                                style="max-width: 300px; max-height: 300px;" />
+
+                                            <div class="absolute top-0 right-0 flex items-center justify-center">
+                                                <button mat-icon-button color="warn" (click)="remove()" type="button">
+                                                    <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <mat-progress-bar *ngIf="loader !== 0" mode="determinate"
+                                            [value]="loader"></mat-progress-bar>
+                                    </div>
+
+                                    <div *ngIf="!uploaded" class="flex items-center justify-center" style="width: 170px; height: 170px;"
+                                      >
+                                        <button mat-mini-fab color="none" [disabled]="disabled"
+                                            (click)="openInput(file1)">
+                                            <mat-icon svgIcon="heroicons_outline:cloud-arrow-up"></mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </mat-radio-group>
                         </div>
+
+
 
                         <ng-container>
                             <div class="flex mt-4">
@@ -75,7 +112,8 @@
                                     <mat-label>Password</mat-label>
                                     <mat-icon matPrefix class="hidden sm:flex icon-size-5"
                                         [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
-                                    <input matInput type="password" [formControlName]="'password'" [placeholder]="'password'">
+                                    <input matInput type="password" [formControlName]="'password'"
+                                        [placeholder]="'password'">
                                 </mat-form-field>
                             </div>
                         </div>
