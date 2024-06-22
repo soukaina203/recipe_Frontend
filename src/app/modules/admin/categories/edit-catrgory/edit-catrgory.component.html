@@ -3,7 +3,7 @@
         <!-- Contact form -->
         <div class="relative flex flex-col items-center flex-auto px-6 sm:px-12">
             <div class="w-full max-w-3xl">
-                <form [formGroup]="myForm" >
+                <form [formGroup]="myForm" *ngIf="myForm">
                     <!-- Avatar -->
                     <!-- Avatar -->
 
@@ -15,29 +15,23 @@
 
                         <div class="flex flex-col items-center justify-center gap-3 md:flex-row ">
 
-                                <!-- <img [src]="category.image === '' || category.image === undefined ? 'assets/images/pics/none.jpeg' :
-                                'http://localhost:5228/' + category.image"
-                                    class="w-[10.5rem] h-[11rem] m-3" > -->
-                            <app-upload-fa-image formControlName="image" folder="categories" [multiple]="false" />
+
+                            <app-upload [image]="category.image" [folder]="'categories'"  (dataEvent)="receiveData($event)"></app-upload>
                         </div>
 
-<pre>
 
-
-    {{category| json}}
-</pre>
                     </div>
                     <!-- prenom -->
                     <ng-container>
                         <div class="flex mt-4">
-                          <mat-form-field class="w-full ml-2">
-                            <mat-label>Nom</mat-label>
-                            <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
-                            <input matInput formControlName="nom" />
-                          </mat-form-field>
+                            <mat-form-field class="w-full ml-2">
+                                <mat-label>Nom</mat-label>
+                                <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                <input matInput formControlName="nom" />
+                            </mat-form-field>
                         </div>
-                      </ng-container>
+                    </ng-container>
 
 
 

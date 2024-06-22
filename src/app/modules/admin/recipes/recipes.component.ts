@@ -69,7 +69,7 @@ export class RecipesComponent {
     }
     delete(id) {
         console.log(id)
-        this.uow.users.delete(id).subscribe((e) => {
+        this.uow.recipes.delete(id).subscribe((e) => {
             console.log(e)
             e ?
                 this.ngOnInit() : console.error("Error while deleting ")

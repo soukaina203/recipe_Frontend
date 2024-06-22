@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from 'app/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,12 +9,16 @@ import { UowService } from 'app/services/uow.service';
 import { HttpClient } from '@angular/common/http';
 import { UploadFileComponent } from '@fuse/upload-file/upload-file.component';
 import { UploadImageFaComponent } from '@fuse/upload-file/upload-image-fa.component';
+import { MatDialog } from '@angular/material/dialog';
+import { FuseAlertComponent } from '@fuse/components/alert';
+import { UploadComponent } from '../../upload/upload.component';
 
 @Component({
     selector: 'app-create-user',
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatModule, UploadImageFaComponent],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule,UploadComponent,
+         MatModule,FuseAlertComponent],
     templateUrl: './create-user.component.html',
     // styleUrls: ['./create-user.component.scss']
 })
@@ -23,13 +27,9 @@ export class CreateUserComponent {
     id: any = 0;
     isProf: boolean = false;
     user = new User(); // Initialize the user object
-    selectedFile: File = null;
-    imageUrl = ""
-    isLoading: boolean = false
+    selectedFile: File | null = null;
 
-    uploaded: boolean = false
-    previewUrl: any = null;
-    pictureUrl: any
+    @ViewChild('popupTemplate') popupTemplate!: TemplateRef<any>;
 
     readonly myForm = this.fb.group({
         id: [this.user.id ?? 0],
@@ -48,65 +48,44 @@ export class CreateUserComponent {
         , private router: Router,
         private uow: UowService,
         private http: HttpClient,
-        private cdr: ChangeDetectorRef  // Inject ChangeDetectorRef
+        private cdr: ChangeDetectorRef , // Inject ChangeDetectorRef
+        private dialog: MatDialog,
 
 
     ) { }
 
 
 
-    openInput(o/*: HTMLInputElement*/) {
-        o.click();
-    }
-    onFileSelected(event: any): void {
-        const file = event.target.files[0];
-        if (file) {
-            this.isLoading = true
-            this.selectedFile = file;
-            this.preview();
-        }
-    }
-    remove() {
-        this.uploaded = false
-        this.previewUrl = ""
-    }
-    preview(): void {
-
-        // Show preview
-        const mimeType = this.selectedFile?.type;
-        if (!mimeType?.startsWith('image/')) {
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.readAsDataURL(this.selectedFile!);
-        this.uploaded = true
-        reader.onload = () => {
-
-            this.previewUrl = reader.result;
-            this.isLoading = false
-            this.cdr.markForCheck();  // Trigger change detection
-
-        };
-    }
-
-
+ receiveData(data:any){
+this.selectedFile=data
+ }
 
     toggleEditMode() {
         this.router.navigate(['/admin/users']);
     }
-    uploadFile() {
 
+    openEmailExistsPoppup(): void {
+        console.log("i am in dialog")
+        const dialogRef = this.dialog.open(this.popupTemplate, {
+            height: '340px',
+            width: '500px'
+            // Set width and other configuration options if needed
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('Dialog closed:', result);
+        });
     }
-
     submit() {
         this.uow.uploads.uploadFile(this.selectedFile, "users").subscribe((res) => {
 
             const user = this.myForm.getRawValue() as User;
             user.image = res.fileName
             this.uow.auth.signUp(user).subscribe((res: any) => {
-                if (res.id !== 0) {
+                if (res.code !== -1) {
                     this.router.navigate(['/admin/users']);
+                }
+                else{
+                    this.openEmailExistsPoppup();
                 }
             });
         })

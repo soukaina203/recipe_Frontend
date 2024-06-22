@@ -11,7 +11,9 @@
 
               <div class="flex items-center justify-center ">
 
-                <app-upload-fa-image formControlName="image" folder="users" [multiple]="false" />
+                <app-upload [folder]="'users'" [image]="user.image" (dataEvent)="receiveData($event)"></app-upload>
+
+
             </div>
 
               <ng-container>
@@ -50,6 +52,9 @@
             </div>
 
             <div class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
+                <button mat-button [color]="'warn'" [matTooltip]="'Delete'" (click)="ProfileDeletePoppup()">
+                    Supprimer
+                </button>
 
               <button class="ml-auto" mat-button matTooltip="Cancel" (click)="toggleEditMode()">
                 Annuler
@@ -63,3 +68,47 @@
       </div>
     </ng-container>
   </div>
+<ng-container>
+    <ng-template #popupTemplate let-dialogRef>
+
+        <button mat-icon-button style="float:right; margin: 5px;color:#93A267; background-color: #E0DADA; "
+            matDialogClose>
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+
+        <mat-dialog-content class="bg-[#FEF2F flex flex-col items-center justify-center w-full ">
+            <div class="flex flex-col items-center justify-center w-full gap-5 ">
+                <span class="text-[#93A267] font-semibold text-2xl"> Profile Updated</span>
+
+
+            </div>
+        </mat-dialog-content>
+
+    </ng-template>
+</ng-container>
+
+<ng-container>
+    <ng-template #DeletePoppup let-dialogRef>
+
+        <button mat-icon-button style="float:right; margin: 5px;color:#93A267; background-color: #E0DADA; "
+            matDialogClose>
+            <mat-icon class="text-white">close</mat-icon>
+        </button>
+
+        <mat-dialog-content class="bg-[#FEF2F flex flex-col items-center justify-center w-full ">
+            <div class="flex flex-col items-center justify-center w-full gap-5 ">
+                <span class="text-2xl font-semibold text-center text-black"> Are u sure that u want to delete Your Account</span>
+                <div class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 dark:bg-transparent">
+                    <button class="ml-auto" (click)="delete()" mat-button matTooltip="Cancel" (click)="toggleEditMode()">
+                        Yes
+                      </button>
+                      <button matDialogClose mat-flat-button class="ml-2 bg-[#2E849D] text-white" matTooltip="Save" (click)="update()">
+                        No
+                      </button>
+                </div>
+
+            </div>
+        </mat-dialog-content>
+
+    </ng-template>
+</ng-container>

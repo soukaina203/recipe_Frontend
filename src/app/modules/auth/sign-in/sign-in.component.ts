@@ -97,7 +97,7 @@ export class AuthSignInComponent implements OnInit {
                         localStorage.setItem('user', userData);
                         this.showAlert = false
                         if(res.user.isAdmin===1){
-                            this.router.navigate(['admin']);
+                            this.router.navigate(['/admin']);
 
                         }else{
                         console.log("user is not an admin ")

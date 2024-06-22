@@ -10,7 +10,6 @@ import { CreateRecipeComponent } from './recipes/create-recipe/create-recipe.com
 import { CategoriesComponent } from './categories/categories.component';
 import { EditCatrgoryComponent } from './categories/edit-catrgory/edit-catrgory.component';
 import { CreateCatrgoryComponent } from './categories/create-catrgory/create-catrgory.component';
-import { TestComponent } from '../landing/test/test.component';
 
 export default [
     {
@@ -21,10 +20,7 @@ export default [
         path     : 'profile',
         component: ProfileComponent,
     },
-    {
-        path     : 'test',
-        component: TestComponent,
-    },
+
 
     {
         path     : 'users',

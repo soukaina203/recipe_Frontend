@@ -6,12 +6,13 @@ import { Category } from 'app/models/Category';
 import { UowService } from 'app/services/uow.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploadImageFaComponent } from '@fuse/upload-file/upload-image-fa.component';
+import { UploadComponent } from '../../upload/upload.component';
 
 
 @Component({
     selector: 'app-edit-catrgory',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, UploadImageFaComponent, MatModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, UploadComponent, UploadImageFaComponent, MatModule],
     templateUrl: './edit-catrgory.component.html',
     styleUrls: ['./edit-catrgory.component.scss']
 })
@@ -19,13 +20,10 @@ export class EditCatrgoryComponent {
     isModify: boolean = false
     id: any = 0;
     category: Category = new Category(); // Initialize the user object
+    selectedFile: File | null = null;
 
-     myForm = this.fb.group({
-        id: [this.category.id ?? 0],
-        nom: [this.category.nom, Validators.minLength(3)],
-        image: null,
+    myForm: FormGroup;
 
-    });
 
 
 
@@ -41,29 +39,32 @@ export class EditCatrgoryComponent {
 
     ) { }
 
+    receiveData(data: any) {
+        this.selectedFile = data
+    }
     ngOnInit(): void {
         this.id = this.route.snapshot.paramMap.get('id');
 
         this.uow.categories.getOne(this.id).subscribe((res) => {
-        //    this.category = res;
-            // console.log(this.category)
-            // console.warn([{image: res.image}] )
+            this.category = res;
 
-            const images = [{image:
-                "categories/Screenshot from 2024-06-16 22-19-49.png"}]
-            this.category = {...res, image: images as any}
 
-            console.warn(this.category)
-    this.myForm.patchValue({...this.category});
+            this.createForm(); // Create the form after the user data is available
 
-    this.myForm.controls.image.setValue(images)
 
 
 
         });
 
     }
+    createForm() {
+        this.myForm = this.fb.group({
+            id: [this.category.id ?? 0],
+            nom: [this.category.nom, Validators.minLength(3)],
+            image: [this.category.image],
 
+        });
+    }
 
 
     delete() {
@@ -79,16 +80,28 @@ export class EditCatrgoryComponent {
 
     update() {
         const category = this.myForm.getRawValue() as Category;
+if (this.selectedFile) {
+    this.uow.uploads.uploadFile(this.selectedFile, "categories").subscribe((res) => {
+        category.image = res.fileName
+        this.uow.categories.put(this.id, category).subscribe((res) => {
+            if (res.m === "success") {
+                this.router.navigate(['/admin/categories']);
+            }
 
-        category.image = (category.image as any as {image: string}[]).map(e => e.image).at(0)
-        console.log(category)
+        })
 
-        //   this.uow.categories.put(this.id,category).subscribe((res) => {
-        //       if (res.m === "success") {
-        //           this.router.navigate(['/admin/categories']);
 
-        //       }
-        //   })
+    })
+
+}else{
+    this.uow.categories.put(this.id, category).subscribe((res) => {
+        if (res.m === "success") {
+            this.router.navigate(['/admin/categories']);
+        }
+
+    })
+}
+
     }
 
 }

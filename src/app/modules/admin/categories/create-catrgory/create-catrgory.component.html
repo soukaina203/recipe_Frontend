@@ -20,10 +20,9 @@
 
                         <div class="flex items-center justify-center ">
 
-                            <app-upload-fa-image
-                            formControlName="image"
-                            folder="categories"
-                            [multiple]="false" />
+                        <app-upload (dataEvent)="receiveData($event)"  ></app-upload>
+
+
                         </div>
 
                         <div class="mt-2">

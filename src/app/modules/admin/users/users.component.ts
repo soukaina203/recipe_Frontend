@@ -68,9 +68,7 @@ export class UsersComponent {
 
     }
     delete(id) {
-        console.log(id)
         this.uow.users.delete(id).subscribe((e) => {
-            console.log(e)
             e ?
                 this.ngOnInit() : console.error("Error while deleting ")
         })
@@ -94,7 +92,17 @@ export class UsersComponent {
                 // Store the table data
                 this.recentTransactionsDataSource.data = this.data.items;
                 this.recentTransactionsDataSource.paginator = this.paginator;
+                let userStorage :any;
                 // Prepare the chart data
+                const localStorage1 = localStorage.getItem('user');
+                if (localStorage1) {
+                     userStorage = JSON.parse(localStorage1)
+                }
+                console.log("=========")
+                console.log(userStorage.isAdmin)
+                if(userStorage.isAdmin ===1 ){
+                    this.recentTransactionsDataSource.data = this.recentTransactionsDataSource.data.filter((e)=>e.id!==userStorage.id)
+                }
             });
 
 

@@ -10,11 +10,12 @@ import { HttpClient } from '@angular/common/http';
 import { UploadFileComponent } from '@fuse/upload-file/upload-file.component';
 import { UploadImageFaComponent } from '@fuse/upload-file/upload-image-fa.component';
 import { Category } from 'app/models/Category';
+import { UploadComponent } from '../../upload/upload.component';
 
 @Component({
   selector: 'app-create-catrgory',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatModule,UploadImageFaComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,UploadComponent, MatModule,UploadImageFaComponent],
   templateUrl: './create-catrgory.component.html',
   styleUrls: ['./create-catrgory.component.scss']
 })
@@ -31,7 +32,9 @@ export class CreateCatrgoryComponent {
         image: [this.category.image],
 
     });
-
+    receiveData(data:any){
+        this.selectedFile=data
+         }
     constructor(
         private userService: UserService,
         private route: ActivatedRoute,
@@ -57,13 +60,18 @@ export class CreateCatrgoryComponent {
     }
 
     submit() {
-        const category = this.myForm.getRawValue() as Category;
-        category.image = (category.image as any).at(0).path;
-         this.uow.categories.post(category).subscribe((res: any) => {
-             if (res.id !== 0) {
-                 this.router.navigate(['/admin/categories']);
-             }
-        });
+
+        this.uow.uploads.uploadFile(this.selectedFile, "categories").subscribe((res) => {
+            const category = this.myForm.getRawValue() as Category;
+            category.image = res.fileName
+            this.uow.categories.post(category).subscribe((res: any) => {
+                if (res.m == 'success') {
+                    this.router.navigate(['/admin/categories']);
+                }
+
+            });
+        })
+
     }
 
 }
