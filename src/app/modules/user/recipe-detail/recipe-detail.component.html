@@ -1,0 +1,131 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex flex-col items-center p-6 sm:p-10">
+        <div class="flex flex-col w-full max-w-4xl">
+            <div class="-ml-4 sm:mt-8">
+                <a mat-button [routerLink]="['/user']" [color]="'primary'">
+                    <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
+                    <span class="ml-2">Back to Recipes</span>
+                </a>
+            </div>
+            <div class="mt-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl"> {{recipe.title}}
+            </div>
+            <span class="font-semibold text-indigo-600">Category : {{recipe?.category?.nom}} </span>
+            <div class="mt-1 tracking-tight sm:text-2xl text-secondary">{{recipe.description}}</div>
+
+            <!-- Guide -->
+            <div class="mt-8 prose-sm prose sm:mt-12 max-w-none" [innerHTML]="">
+
+                <!-- <img [src]="recipe.image==='string'?
+                                    'assets/images/pics/blank.png'
+                                     : 'http://localhost:5228/recipes/'+recipe.image"
+                    class="w-full h-full  max-h-[30rem] mt-auto mb-auto " />
+ -->
+
+
+                    <div class="relative mb-4">
+                        <img
+                            class="object-cover h-80"
+                            [src]="recipe.image==='string'?
+                            'assets/images/pics/blank.png'
+                             : 'http://localhost:5228/recipes/'+recipe.image"
+                            alt="Card cover image">
+
+                    </div>
+                    <div class="flex items-center mx-3 sm:mx-5">
+                        <button
+                        *ngIf="isLiked"
+                        (click)="LikeARecipe()"
+                            class="px-3 mr-1"
+                            mat-button>
+                            <mat-icon
+                                class="text-red-500 icon-size-5"
+                                [svgIcon]="'heroicons_solid:heart'"></mat-icon>
+                            <span class="ml-2">Unlike ({{linkesCount}}) </span>
+                        </button>
+                        <button
+                        (click)="LikeARecipe()"
+                        *ngIf="!isLiked"
+
+                        class="px-3 mr-1"
+                        mat-button>
+                        <mat-icon
+                            class="text-black icon-size-5"
+                            [svgIcon]="'heroicons_solid:heart'"></mat-icon>
+                        <span class="ml-2">Like ({{linkesCount}})</span>
+                    </button>
+                        <button
+                            class="px-3 mr-1"
+                            mat-button>
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:chat-bubble-left-ellipsis'"></mat-icon>
+                            <span class="ml-2">Comment</span>
+                        </button>
+                        <button
+                            class="px-3 mr-1"
+                            mat-button>
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:share'"></mat-icon>
+                            <span class="ml-2">Share</span>
+                        </button>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="flex flex-col">
+
+                    <h2 class="font-semibold ">Ingredients</h2>
+
+                    <p>
+                        {{recipe.ingredients}}
+                    </p>
+
+
+
+                    <h2> Instructions</h2>
+
+                    <p class="font-semibold">
+                        {{recipe.instructions}}
+
+                    </p>
+
+
+
+
+
+
+
+
+                </div>
+
+
+                <!-- Next -->
+
+            </div>
+        </div>
+    </div>

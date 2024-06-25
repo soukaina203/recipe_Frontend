@@ -79,7 +79,6 @@ export class EditRecipeComponent {
 
     delete() {
         this.uow.recipes.delete(this.id).subscribe((e) => {
-
             e ?
                 this.router.navigate(['/admin/recipes']) : console.error("Error while deleting ")
         })

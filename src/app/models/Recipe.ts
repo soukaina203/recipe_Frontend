@@ -1,3 +1,5 @@
+import { Category } from "./Category"
+
 export class Recipe{
     id:number
     title:string
@@ -7,4 +9,5 @@ export class Recipe{
     image:string
     idUser:number
     idCategory:number
+    category:Category
 }

@@ -101,6 +101,8 @@ export class AuthSignInComponent implements OnInit {
 
                         }else{
                         console.log("user is not an admin ")
+                        this.router.navigate(['/user']);
+
                         }
 
                     }
