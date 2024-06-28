@@ -1,5 +1,4 @@
 <div class="flex flex-col flex-auto min-w-0">
-
     <!-- Main -->
     <div class="flex flex-col items-center p-6 sm:p-10">
         <div class="flex flex-col w-full max-w-4xl">
@@ -9,123 +8,107 @@
                     <span class="ml-2">Back to Recipes</span>
                 </a>
             </div>
-            <div class="mt-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl"> {{recipe.title}}
+            <div class="mt-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl">
+                {{ recipe.title }}
             </div>
-            <span class="font-semibold text-indigo-600">Category : {{recipe?.category?.nom}} </span>
-            <div class="mt-1 tracking-tight sm:text-2xl text-secondary">{{recipe.description}}</div>
+            <span class="font-semibold text-indigo-600">Category : {{ recipe?.category?.nom }}</span>
+            <div class="mt-1 tracking-tight sm:text-2xl text-secondary">
+                {{ recipe.description }}
+            </div>
 
             <!-- Guide -->
-            <div class="mt-8 prose-sm prose sm:mt-12 max-w-none" [innerHTML]="">
-
-                <!-- <img [src]="recipe.image==='string'?
-                                    'assets/images/pics/blank.png'
-                                     : 'http://localhost:5228/recipes/'+recipe.image"
-                    class="w-full h-full  max-h-[30rem] mt-auto mb-auto " />
- -->
-
-
-                    <div class="relative mb-4">
-                        <img
-                            class="object-cover h-80"
-                            [src]="recipe.image==='string'?
-                            'assets/images/pics/blank.png'
-                             : 'http://localhost:5228/recipes/'+recipe.image"
-                            alt="Card cover image">
-
-                    </div>
-                    <div class="flex items-center mx-3 sm:mx-5">
-                        <button
-                        *ngIf="isLiked"
-                        (click)="LikeARecipe()"
-                            class="px-3 mr-1"
-                            mat-button>
-                            <mat-icon
-                                class="text-red-500 icon-size-5"
-                                [svgIcon]="'heroicons_solid:heart'"></mat-icon>
-                            <span class="ml-2">Unlike ({{linkesCount}}) </span>
-                        </button>
-                        <button
-                        (click)="LikeARecipe()"
-                        *ngIf="!isLiked"
-
-                        class="px-3 mr-1"
-                        mat-button>
-                        <mat-icon
-                            class="text-black icon-size-5"
-                            [svgIcon]="'heroicons_solid:heart'"></mat-icon>
-                        <span class="ml-2">Like ({{linkesCount}})</span>
+            <div class="mt-8 prose-sm prose sm:mt-12 max-w-none" [innerHTML]>
+                <div class="relative mb-4">
+                    <img class="object-cover h-80" [src]="
+                            recipe.image === 'string'
+                                ? 'assets/images/pics/blank.png'
+                                : 'http://localhost:5228/recipes/' +
+                                  recipe.image
+                        " alt="Card cover image" />
+                </div>
+                <div class="flex items-center mx-3 sm:mx-5">
+                    <button *ngIf="isLiked" (click)="LikeARecipe()" class="px-3 mr-1" mat-button>
+                        <mat-icon class="text-red-500 icon-size-5" [svgIcon]="'heroicons_solid:heart'"></mat-icon>
+                        <span class="ml-2">Unlike ({{ linkesCount }})</span>
                     </button>
-                        <button
-                            class="px-3 mr-1"
-                            mat-button>
-                            <mat-icon
-                                class="icon-size-5"
-                                [svgIcon]="'heroicons_solid:chat-bubble-left-ellipsis'"></mat-icon>
-                            <span class="ml-2">Comment</span>
-                        </button>
-                        <button
-                            class="px-3 mr-1"
-                            mat-button>
-                            <mat-icon
-                                class="icon-size-5"
-                                [svgIcon]="'heroicons_solid:share'"></mat-icon>
-                            <span class="ml-2">Share</span>
-                        </button>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="flex flex-col">
-
-                    <h2 class="font-semibold ">Ingredients</h2>
-
-                    <p>
-                        {{recipe.ingredients}}
-                    </p>
-
-
-
-                    <h2> Instructions</h2>
-
-                    <p class="font-semibold">
-                        {{recipe.instructions}}
-
-                    </p>
-
-
-
-
-
-
-
-
+                    <button (click)="LikeARecipe()" *ngIf="!isLiked" class="px-3 mr-1" mat-button>
+                        <mat-icon class="text-black icon-size-5" [svgIcon]="'heroicons_solid:heart'"></mat-icon>
+                        <span class="ml-2">Like ({{ linkesCount }})</span>
+                    </button>
+                    <button class="px-3 sm:-mr-4" mat-button (click)="openCommentSection()" >
+                        <span class="mr-1"> {{commentCount}} Comments</span>
+                        <mat-icon class="transition-transform duration-150 ease-in-out rotate-0 icon-size-5"
+                            [svgIcon]="'heroicons_mini:chevron-down'"></mat-icon>
+                    </button>
                 </div>
 
 
-                <!-- Next -->
+                <div class="flex flex-col mx-4 mt-6 mb-3 sm:mx-8" *ngIf="openComment">
+                    <div class="flex items-start">
 
+
+
+                        <img [src]="connectedUser.image==='string'?
+                                    'assets/images/pics/blank.png'
+                                     : 'http://localhost:5228/users/'+connectedUser.image"
+                            class="w-12 h-12 mr-5 rounded-full" />
+
+
+                        <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                            <textarea type="text" matInput [(ngModel)]="commentContent"
+                                [placeholder]="'Write a comment...'" [rows]="3" cdkTextareaAutosize></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex items-center mt-3 ml-auto -mr-3">
+                        <button mat-icon-button (click)="sendComment()">
+                            <mat-icon class="transition-transform duration-150 ease-in-out rotate-0 icon-size-5"
+                                [svgIcon]="'heroicons_outline:paper-airplane'"></mat-icon>
+                        </button>
+
+                    </div>
+                </div>
+
+                <hr class="mx-4 my-0 border-b sm:mx-8">
+                <div class="overflow-y-auto max-h-120" *ngIf="openComment">
+                    <div class="relative flex flex-col mx-4 my-6 sm:mx-8">
+                        <div *ngFor="let comment of comments" class="flex items-start">
+
+
+                            <img [src]="comment.user.image==='string'?
+                            'assets/images/pics/blank.png'
+                             : 'http://localhost:5228/users/'+comment.user.image"
+                            class="w-8 h-8 mr-5 rounded-full" />
+
+
+                            <div class="flex flex-col mt-0.5">
+                                <span>
+                                    <b> {{comment.user.nom}} {{comment.user.prenom}} </b> {{comment.content}}
+                                </span>
+                                <div class="flex items-center mt-2 text-sm text-secondary">
+                                    <span class="mr-2 cursor-pointer hover:underline">Like</span>
+                                    <span class="mr-2 cursor-pointer hover:underline">Reply</span>
+                                    <span class="mr-2">&bull;</span>
+                                    <span> {{comment.createdAt}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        </div>
+
+                </div>
+                <div class="flex flex-col">
+                    <h2 class="font-semibold">Ingredients</h2>
+
+                    <p>{{ recipe.ingredients }}</p>
+
+                    <h2>Instructions</h2>
+
+                    <p class="font-semibold">{{ recipe.instructions }}</p>
+                </div>
+
+                <!-- Next -->
             </div>
         </div>
     </div>
+</div>

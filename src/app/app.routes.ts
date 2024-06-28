@@ -5,6 +5,7 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { AuthSignInComponent } from './modules/auth/sign-in/sign-in.component';
 import { AuthSignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { LandingHomeComponent } from './modules/landing/home/home.component';
+import { AuthGuard } from './core/auth/guards/auth.guard';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -32,8 +33,8 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path: '',
-        // canActivate: [AuthGuard],
-        // canActivateChild: [AuthGuard],
+         canActivate: [AuthGuard],
+         canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver

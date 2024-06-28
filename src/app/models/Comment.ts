@@ -1,4 +1,4 @@
-export class Comment{
+export class commentaire{
     id:number
     content:string
     createdAt:Date

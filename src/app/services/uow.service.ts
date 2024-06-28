@@ -20,7 +20,7 @@ export class UowService {
     readonly recipes= inject(RecipeService);
     readonly categories= inject(CategoryService);
     readonly likes= inject(LikeService);
-    readonly comment= inject(CommentService);
+    readonly comments= inject(CommentService);
     readonly uploads= inject(UploadService);
     readonly files = inject(FileUploadService);
     readonly auth = inject(AuthService);
