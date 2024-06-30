@@ -59,6 +59,7 @@ export class EditRecipeComponent {
         });
         this.uow.categories.getAll().subscribe((res: any) => {
             this.categories = res
+            console.log(this.categories)
         })
 
     }

@@ -36,10 +36,20 @@
 
                 <!-- Basic -->
                 <ng-container *ngIf="item.type === 'basic'">
+                    <ng-container *ngIf="user.isAdmin === 1 && item.id !== 'profile1'">
                     <fuse-vertical-navigation-basic-item
                         [item]="item"
                         [name]="name"></fuse-vertical-navigation-basic-item>
                 </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="item.type === 'basic'">
+                <ng-container *ngIf="(item.id === 'profile1' && user.isAdmin === 0)">
+                <fuse-vertical-navigation-basic-item
+                    [item]="item"
+                    [name]="name"></fuse-vertical-navigation-basic-item>
+            </ng-container>
+        </ng-container>
 
                 <!-- Collapsable -->
                 <ng-container *ngIf="item.type === 'collapsable'">

@@ -101,7 +101,7 @@
                         <mat-form-field class="w-full mt-2 " [subscriptSizing]="'dynamic'">
                             <mat-label>Categories</mat-label>
                             <mat-select [formControlName]="'idCategory'">
-                                <ng-container *ngFor="let category of categories.items">
+                                <ng-container *ngFor="let category of categories">
                                     <mat-option [value]="category.id">{{category.nom}}</mat-option>
                                 </ng-container>
                             </mat-select>

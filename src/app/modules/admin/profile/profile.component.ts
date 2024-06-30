@@ -4,13 +4,13 @@ import { User } from 'app/models/User';
 import { UowService } from 'app/services/uow.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UploadComponent } from '../upload/upload.component';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, MatModule, UploadComponent],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterLink, MatModule, UploadComponent],
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss']
 })
@@ -71,6 +71,7 @@ export class ProfileComponent {
                 this.uow.users.put(this.user.id, user).subscribe((res) => {
                     if (res.m === "success") {
                         this.ProfileEditedPoppup()
+                        this.uow.users.user$.next(user)
                     }
                 })
             })
@@ -78,6 +79,7 @@ export class ProfileComponent {
             this.uow.users.put(this.user.id, user).subscribe((res) => {
                 if (res.m === "success") {
                     this.ProfileEditedPoppup()
+                    this.uow.users.user$.next(user)
                 }
             })
         }

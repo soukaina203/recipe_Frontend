@@ -10,6 +10,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : 'admin/profile'
     },
+
+    {
+        id   : 'profile1',
+        title: 'Profile',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : 'user/profile'
+    },
     {
         id   : 'users',
         title: 'Users',

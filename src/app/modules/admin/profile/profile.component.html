@@ -5,6 +5,12 @@
         <div class="w-full max-w-3xl">
           <form [formGroup]="myForm" *ngIf="myForm">
             <div class="mt-10">
+                <div class="-ml-4 sm:mt-8" *ngIf="user.isAdmin!==1">
+                  <a mat-button [routerLink]="['/user']" [color]="'primary'">
+                      <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
+                      <span class="ml-2">Back to Recipes</span>
+                  </a>
+              </div>
               <h1 class="mt-6 mb-10 ml-1 text-[#8B7F87] text-3xl font-semibold">
               Profil
               </h1>

@@ -10,13 +10,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { User } from 'app/models/User';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
+import { Category } from 'app/models/Category';
 @Component({
   selector: 'app-categories',
   standalone: true,
@@ -36,13 +37,15 @@ export class CategoriesComponent {
     recentTransactionsTableMatSort: MatSort;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    categories$: Observable<Category[]>;
+
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);
     list: User[] = [];
     isSearchBarOpened: boolean = false
     data: any;
     accountBalanceOptions: ApexOptions;
-    recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
+    recentTransactionsDataSource: any = new MatTableDataSource();
     recentTransactionsTableColumns: string[] = ['id', 'name',
     'actions'];
 
@@ -83,21 +86,12 @@ export class CategoriesComponent {
 
 
     ngOnInit(): void {
-        // Get the data
-        this.uow.categories.getAll()
-            .subscribe((data) => {
-                // Store the data
-                this.data = data;
 
-
-
-                // Store the table data
-                this.recentTransactionsDataSource.data = this.data.items;
-                this.recentTransactionsDataSource.paginator = this.paginator;
-                // Prepare the chart data
-            });
-
-
+        this.categories$ = this.uow.categories.getAll();
+        this.categories$.subscribe((data: Category[]) => {
+          this.recentTransactionsDataSource.data = data; // expects an array of data not an observable
+          this.recentTransactionsDataSource.paginator = this.paginator;
+        });
     }
 
     /**

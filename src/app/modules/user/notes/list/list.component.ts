@@ -1,6 +1,7 @@
 import { items } from './../../../../mock-api/apps/file-manager/data';
 import { AsyncPipe, CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,26 +22,29 @@ import { cloneDeep } from 'lodash-es';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, map, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector       : 'notes-list',
-    templateUrl    : './list.component.html',
-    encapsulation  : ViewEncapsulation.None,
+    selector: 'notes-list',
+    templateUrl: './list.component.html',
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone     : true,
-    imports        : [MatSidenavModule, CommonModule ,MatRippleModule,RouterLink, NgClass, MatIconModule, NgIf, NgFor, MatButtonModule, MatFormFieldModule, MatInputModule, FuseMasonryComponent, AsyncPipe],
+    standalone: true,
+    imports: [MatSidenavModule, CommonModule, FormsModule, MatRippleModule, RouterLink, NgClass, MatIconModule, NgIf, NgFor, MatButtonModule, MatFormFieldModule, MatInputModule, FuseMasonryComponent, AsyncPipe],
 })
-export class NotesListComponent implements OnInit, OnDestroy
-{
+export class NotesListComponent implements OnInit, OnDestroy {
+
+    categories$: Observable<Category[]>;
+
     labels$: Observable<Label[]>;
     notes$: Observable<Note[]>;
-    recipes:Recipe[]=[]
-    permanentRecipes:Recipe[]=[]
+    recipes: Recipe[] = []
+    permanentRecipes: Recipe[] = []
     drawerMode: 'over' | 'side' = 'side';
     drawerOpened: boolean = true;
     filter$: BehaviorSubject<string> = new BehaviorSubject('notes');
     searchQuery$: BehaviorSubject<string> = new BehaviorSubject(null);
     masonryColumns: number = 3;
-    categories:Category[]=[]
+    categories: Category[] = []
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    searchValue: string = '';
 
     /**
      * Constructor
@@ -50,9 +54,8 @@ export class NotesListComponent implements OnInit, OnDestroy
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _matDialog: MatDialog,
         private _notesService: NotesService,
-        private uow:UowService
-    )
-    {
+        private uow: UowService
+    ) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -62,8 +65,7 @@ export class NotesListComponent implements OnInit, OnDestroy
     /**
      * Get the filter status
      */
-    get filterStatus(): string
-    {
+    get filterStatus(): string {
         return this.filter$.value;
     }
 
@@ -74,41 +76,52 @@ export class NotesListComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
-        this.uow.categories.getAll().subscribe((res:any)=>{
-            this.categories=res.items
-        })
+    ngOnInit(): void {
+        this.categories$ = this.uow.categories.getAll();
+
         this.uow.recipes.getAll()
-        .subscribe((data:any) => {
-            // Store the data
-            console.log("===============")
-            this.recipes = data.items;
-            this.permanentRecipes=data.items
-            this._changeDetectorRef.markForCheck(); // Trigger change detection if needed
+            .subscribe((data: any) => {
+                // Store the data
+                console.log("===============")
+                this.recipes = data.items;
+                this.permanentRecipes = data.items
+                this._changeDetectorRef.markForCheck(); // Trigger change detection if needed
 
 
 
-            // Prepare the chart data
-        });
+                // Prepare the chart data
+            });
 
     }
-    chooseCategory(idCategory){
-        this.recipes=this.permanentRecipes
-        this.recipes=this.recipes.filter(e=>e.idCategory==idCategory)
+    search() {
+        // Implement your search logic here
+        if (this.searchValue === "") {
+            this.recipes = this.permanentRecipes
+        } else {
+            this.recipes = this.recipes.filter(recipe =>
+                recipe.title.toLowerCase().includes(this.searchValue.toLowerCase())
+            );
+
+
+        }
     }
-    getAllCategories(){
-        this.recipes=this.permanentRecipes
+
+    chooseCategory(idCategory) {
+        this.recipes = this.permanentRecipes
+        this.recipes = this.recipes.filter(e => e.idCategory == idCategory)
+    }
+    getAllCategories() {
+        this.recipes = this.permanentRecipes
     }
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
+
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -121,8 +134,7 @@ export class NotesListComponent implements OnInit, OnDestroy
     /**
      * Filter by archived
      */
-    filterByArchived(): void
-    {
+    filterByArchived(): void {
         this.filter$.next('archived');
     }
 
@@ -131,8 +143,7 @@ export class NotesListComponent implements OnInit, OnDestroy
      *
      * @param labelId
      */
-    filterByLabel(labelId: string): void
-    {
+    filterByLabel(labelId: string): void {
         const filterValue = `label:${labelId}`;
         this.filter$.next(filterValue);
     }
@@ -142,16 +153,14 @@ export class NotesListComponent implements OnInit, OnDestroy
      *
      * @param query
      */
-    filterByQuery(query: string): void
-    {
+    filterByQuery(query: string): void {
         this.searchQuery$.next(query);
     }
 
     /**
      * Reset filter
      */
-    resetFilter(): void
-    {
+    resetFilter(): void {
         this.filter$.next('notes');
     }
 
@@ -161,8 +170,7 @@ export class NotesListComponent implements OnInit, OnDestroy
      * @param index
      * @param item
      */
-    trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 }

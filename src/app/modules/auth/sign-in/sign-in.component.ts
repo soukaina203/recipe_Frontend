@@ -11,6 +11,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { UowService } from 'app/services/uow.service';
 
 @Component({
     selector: 'auth-sign-in',
@@ -38,6 +39,7 @@ export class AuthSignInComponent implements OnInit {
         private _authService: AuthService,
         private _formBuilder: UntypedFormBuilder,
         private router: Router,
+       private uow:UowService
     ) {
     }
 
@@ -95,6 +97,8 @@ export class AuthSignInComponent implements OnInit {
                         localStorage.setItem('token', res.token);
                         const userData = JSON.stringify(res.user); // Convert to JSON string
                         localStorage.setItem('user', userData);
+                        this.uow.users.user$.next(res.user)
+
                         this.showAlert = false
                         if(res.user.isAdmin===1){
                             this.router.navigate(['/admin']);

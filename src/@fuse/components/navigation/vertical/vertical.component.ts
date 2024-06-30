@@ -15,6 +15,8 @@ import { FuseVerticalNavigationGroupItemComponent } from '@fuse/components/navig
 import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
 import { FuseScrollbarDirective } from '@fuse/directives/scrollbar/scrollbar.directive';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { User } from 'app/models/User';
+import { UowService } from 'app/services/uow.service';
 import { delay, filter, merge, ReplaySubject, Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
@@ -50,7 +52,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
     @Output() readonly openedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() readonly positionChanged: EventEmitter<FuseVerticalNavigationPosition> = new EventEmitter<FuseVerticalNavigationPosition>();
     @ViewChild('navigationContent') private _navigationContentEl: ElementRef;
-
+    user:User;
     activeAsideItemId: string | null = null;
     onCollapsableItemCollapsed: ReplaySubject<FuseNavigationItem> = new ReplaySubject<FuseNavigationItem>(1);
     onCollapsableItemExpanded: ReplaySubject<FuseNavigationItem> = new ReplaySubject<FuseNavigationItem>(1);
@@ -77,6 +79,8 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         @Inject(DOCUMENT) private _document: Document,
         private _elementRef: ElementRef,
         private _renderer2: Renderer2,
+        private uow: UowService,
+
         private _router: Router,
         private _scrollStrategyOptions: ScrollStrategyOptions,
         private _fuseNavigationService: FuseNavigationService,
@@ -311,6 +315,12 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         if ( this.name === '' )
         {
             this.name = this._fuseUtilsService.randomId();
+        }
+
+
+        const localStorage1 = localStorage.getItem('user');
+        if (localStorage1) {
+            this.user = JSON.parse(localStorage1)
         }
 
         // Register the navigation component

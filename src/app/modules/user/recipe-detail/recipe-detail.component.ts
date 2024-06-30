@@ -38,6 +38,14 @@ export class RecipeDetailComponent {
 
     openCommentSection() {
         this.openComment ? this.openComment = false : this.openComment = true
+
+        this.uow.users.user$.subscribe((res)=>{
+            if (res!==null) {
+
+                this.connectedUser=res
+            }
+            console.log("hell")
+           })
     }
     constructor(
         private uow: UowService,
