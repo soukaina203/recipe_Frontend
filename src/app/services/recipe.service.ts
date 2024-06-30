@@ -11,4 +11,6 @@ export class RecipeService extends SuperService<Recipe> {
         super('recipe');
 
     }
+
+
 }

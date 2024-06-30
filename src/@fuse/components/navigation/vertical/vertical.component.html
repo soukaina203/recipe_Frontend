@@ -1,4 +1,6 @@
-<div class="fuse-vertical-navigation-wrapper">
+<div class="fuse-vertical-navigation-wrapper"
+
+>
 
     <!-- Header -->
     <div class="fuse-vertical-navigation-header">
@@ -44,7 +46,7 @@
             </ng-container>
 
             <ng-container *ngIf="item.type === 'basic'">
-                <ng-container *ngIf="(item.id === 'profile1' && user.isAdmin === 0)">
+                <ng-container *ngIf="(item.id === 'profile1' && user.isAdmin === 0 || item.id==='likedRecipes' &&user.isAdmin === 0 )">
                 <fuse-vertical-navigation-basic-item
                     [item]="item"
                     [name]="name"></fuse-vertical-navigation-basic-item>

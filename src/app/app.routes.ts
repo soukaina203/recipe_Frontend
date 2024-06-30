@@ -7,6 +7,7 @@ import { AuthSignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { LandingHomeComponent } from './modules/landing/home/home.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { ProfileComponent } from './modules/admin/profile/profile.component';
+import { adminGuard } from './guards/admin.guard';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -43,7 +44,11 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver
         },
         children: [
-            {path: 'admin', loadChildren: () => import('app/modules/admin/example.routes')},
+
+            {path: 'admin',
+            canActivate: [adminGuard],
+
+            loadChildren: () => import('app/modules/admin/example.routes')},
         ]
     },
     {

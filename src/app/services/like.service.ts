@@ -21,4 +21,9 @@ export class LikeService extends SuperService<Like>{
 
         return this.http.delete(`${this.urlApi}/${this.controller}/deleteLike/${userId}/${recipeId}`);
     }
+    GetLikedRecipes(userId:number ): Observable<any> {
+        // Check each parameter and replace with '*' if empty
+
+        return this.http.get(`${this.urlApi}/${this.controller}/GetLikedRecipes/${userId}`);
+    }
 }

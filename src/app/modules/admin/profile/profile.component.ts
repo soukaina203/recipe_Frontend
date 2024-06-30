@@ -50,7 +50,7 @@ export class ProfileComponent {
             image: [this.user.image, Validators.minLength(3)],
             prenom: [this.user.prenom, Validators.minLength(3)],
             email: [this.user.email, Validators.email],
-            password: '',
+            password: [this.user.password],
             isAdmin: [this.user.isAdmin],
         });
     }

@@ -27,6 +27,8 @@ export class RecipeDetailComponent {
     commentContent: string = ''
     openComment: boolean = false
     comments: commentaire[] = []
+    component:string=''
+
     readonly myForm = this.fb.group({
         id: [this.comment.id ?? 0],
         content: [this.comment.content],
@@ -56,6 +58,8 @@ export class RecipeDetailComponent {
 
     ) { }
     ngOnInit(): void {
+        this.component = this.route.snapshot.paramMap.get('component');
+
         const localStorage1 = localStorage.getItem('user');
         if (localStorage1) {
             this.connectedUser = JSON.parse(localStorage1)

@@ -322,6 +322,9 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         if (localStorage1) {
             this.user = JSON.parse(localStorage1)
         }
+        this.uow.users.getOne(this.user.id).subscribe((res)=>{
+            this.user=res
+        })
 
         // Register the navigation component
         this._fuseNavigationService.registerComponent(this.name, this);

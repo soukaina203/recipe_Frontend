@@ -93,7 +93,7 @@
                             <!-- Column -->
                             <ng-container *ngFor="let note of recipes; trackBy: trackByFn">
                                 <!-- Note -->
-                                <a [routerLink]="['/user/recipe', note.id]" routerLinkActive="router-link-active">
+                                <a [routerLink]="['/user/recipe','list', note.id]" routerLinkActive="router-link-active">
                                     <div class="flex flex-col h-full overflow-hidden shadow cursor-pointer rounded-2xl bg-card">
                                         <!-- Image -->
                                         <ng-container *ngIf="note.image">
