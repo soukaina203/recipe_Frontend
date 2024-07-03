@@ -11,6 +11,10 @@ export class LikeService extends SuperService<Like>{
         super('like');
 
     }
+    getTopRecipe(recipeId:number): Observable<any> {
+        return this.http.get(`${this.urlApi}/${this.controller}/getTopRecipe`);
+
+    }
     getLikesOfaRecipe(recipeId:number): Observable<any> {
         // Check each parameter and replace with '*' if empty
 

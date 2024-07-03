@@ -38,6 +38,7 @@ export class CategoriesComponent {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     categories$: Observable<Category[]>;
+    searchValue: string = '';
 
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);
@@ -48,6 +49,7 @@ export class CategoriesComponent {
     recentTransactionsDataSource: any = new MatTableDataSource();
     recentTransactionsTableColumns: string[] = ['id', 'name',
     'actions'];
+    permanentData:MatTableDataSource<any> = new MatTableDataSource();
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     myForm: FormGroup;
@@ -82,6 +84,20 @@ export class CategoriesComponent {
     choosenRole(id: number) {
         this.idRole = id
     }
+    search() {
+        // Implement your search logic here
+        if (this.searchValue === "") {
+            this.recentTransactionsDataSource.data = this.permanentData.data
+        } else {
+            this.recentTransactionsDataSource.data = this.recentTransactionsDataSource.data.filter(category =>
+                category.nom.toLowerCase().includes(this.searchValue.toLowerCase())
+            );
+
+
+
+        }
+    }
+
 
 
 
@@ -91,6 +107,7 @@ export class CategoriesComponent {
         this.categories$.subscribe((data: Category[]) => {
           this.recentTransactionsDataSource.data = data; // expects an array of data not an observable
           this.recentTransactionsDataSource.paginator = this.paginator;
+          this.permanentData.data=data
         });
     }
 

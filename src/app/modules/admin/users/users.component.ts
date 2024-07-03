@@ -1,3 +1,4 @@
+import { toSignal } from '@angular/core/rxjs-interop';
 import { UowService } from './../../../services/uow.service';
 import { CommonModule } from '@angular/common';
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
@@ -10,7 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { User } from 'app/models/User';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,27 +19,31 @@ import { UserService } from 'app/services/user.service';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
 @Component({
-  selector: 'app-users',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule,
-    MatPaginatorModule,
-    MatModule,
-    MatMenuModule, MatDividerModule, NgApexchartsModule,
-    MatTableModule, MatSortModule, NgClass,
-    RouterModule,
-    FormsModule,
-    MatProgressBarModule, CurrencyPipe, DatePipe],
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+    selector: 'app-users',
+    standalone: true,
+    imports: [CommonModule, MatButtonModule, MatIconModule,
+        MatPaginatorModule,
+        MatModule,
+        MatMenuModule, MatDividerModule, NgApexchartsModule,
+        MatTableModule, MatSortModule, NgClass,
+        RouterModule,
+        FormsModule,
+        MatProgressBarModule, CurrencyPipe, DatePipe],
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.scss']
 })
 export class UsersComponent {
     @ViewChild('recentTransactionsTable', { read: MatSort })
     recentTransactionsTableMatSort: MatSort;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    searchValue: string = '';
+    permanentData:MatTableDataSource<any> = new MatTableDataSource();
+    users$: Observable<User[]>;
+    session: any;
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);
-    list: User[] = [];
+
     isSearchBarOpened: boolean = false
     data: any;
     accountBalanceOptions: ApexOptions;
@@ -59,10 +64,10 @@ export class UsersComponent {
     ) {
     }
     openSearchBar() {
-        if(this.isSearchBarOpened){
+        if (this.isSearchBarOpened) {
             this.isSearchBarOpened = false
             this.ngOnInit()
-        }else(
+        } else (
             this.isSearchBarOpened = true
         )
 
@@ -77,34 +82,37 @@ export class UsersComponent {
     choosenRole(id: number) {
         this.idRole = id
     }
+    search() {
+        // Implement your search logic here
+        if (this.searchValue === "") {
+            this.recentTransactionsDataSource.data = this.permanentData.data
+        } else {
+            this.recentTransactionsDataSource.data = this.recentTransactionsDataSource.data.filter(user =>
+                user.nom.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                user.prenom.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                user.email.toLowerCase().includes(this.searchValue.toLowerCase())
+            );
+
+
+
+        }
+    }
+
+
 
 
 
     ngOnInit(): void {
-        // Get the data
-        this.uow.users.getAll()
-            .subscribe((data) => {
-                // Store the data
-                this.data = data;
-
-
-
-                // Store the table data
-                this.recentTransactionsDataSource.data = this.data.items;
-                this.recentTransactionsDataSource.paginator = this.paginator;
-                let userStorage :any;
-                // Prepare the chart data
-                const localStorage1 = localStorage.getItem('user');
-                if (localStorage1) {
-                     userStorage = JSON.parse(localStorage1)
-                }
-                console.log("=========")
-                console.log(userStorage.isAdmin)
-                if(userStorage.isAdmin ===1 ){
-                    this.recentTransactionsDataSource.data = this.recentTransactionsDataSource.data.filter((e)=>e.id!==userStorage.id)
-                }
-            });
-
+        this.users$ = this.uow.users.getAll();
+        this.users$.subscribe((data: User[]) => {
+            this.recentTransactionsDataSource.data = data; // expects an array of data not an observable
+            this.recentTransactionsDataSource.paginator = this.paginator;
+            this.permanentData.data=data
+        });
+        this.session = this.uow.session.getUserData()
+        this.session.isAdmin === 1 ?
+            this.recentTransactionsDataSource.data = this.recentTransactionsDataSource.data.filter((e) => e.id !== this.session.id)
+            : ""
 
     }
 

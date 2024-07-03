@@ -4,10 +4,10 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { AuthSignInComponent } from './modules/auth/sign-in/sign-in.component';
 import { AuthSignUpComponent } from './modules/auth/sign-up/sign-up.component';
-import { LandingHomeComponent } from './modules/landing/home/home.component';
 import { AuthGuard } from './core/auth/guards/auth.guard';
 import { ProfileComponent } from './modules/admin/profile/profile.component';
 import { adminGuard } from './guards/admin.guard';
+import { LandingPageComponent } from './modules/landing/landing-page.component';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -18,7 +18,7 @@ export const appRoutes: Route[] = [
 
 
     {
-        path: '', component: LandingHomeComponent,
+        path: '', component: LandingPageComponent,
 
     },
 

@@ -10,13 +10,14 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { User } from 'app/models/User';
 import { RouterModule, Routes } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
+import { Recipe } from 'app/models/Recipe';
 @Component({
   selector: 'app-recipes',
   standalone: true,
@@ -47,12 +48,17 @@ export class RecipesComponent {
         'role', 'actions'];
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    permanentData:MatTableDataSource<any> = new MatTableDataSource();
+
     myForm: FormGroup;
     //===================
     nom: string = ''
     prenom: string = ''
     email: string = ''
     idRole: number = 0
+    searchValue: string = '';
+
+    recipes$: Observable<Recipe[]>;
 
     constructor(private uow: UowService,
         private fb: FormBuilder
@@ -80,22 +86,36 @@ export class RecipesComponent {
         this.idRole = id
     }
 
+    search() {
+        // Implement your search logic here
+        if (this.searchValue === "") {
+            this.recentTransactionsDataSource.data = this.permanentData.data
+        } else {
+            this.recentTransactionsDataSource.data = this.recentTransactionsDataSource.data.filter(recipe =>
+                recipe.title.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                recipe.category?.nom.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                recipe.user?.nom.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+                recipe.user?.prenom.toLowerCase().includes(this.searchValue.toLowerCase())
+            );
+
+
+
+        }
+    }
+
+
+
+
 
 
     ngOnInit(): void {
-        // Get the data
-        this.uow.recipes.getAll()
-            .subscribe((data) => {
-                // Store the data
-                this.data = data;
-
-
-
-                // Store the table data
-                this.recentTransactionsDataSource.data = this.data.items;
-                this.recentTransactionsDataSource.paginator = this.paginator;
-                // Prepare the chart data
-            });
+        this.recipes$ = this.uow.recipes.getAll();
+        this.recipes$.subscribe((data: Recipe[]) => {
+            console.log(data)
+            this.recentTransactionsDataSource.data = data; // expects an array of data not an observable
+            this.recentTransactionsDataSource.paginator = this.paginator;
+            this.permanentData.data=data
+        });
 
 
     }
@@ -132,7 +152,7 @@ export class RecipesComponent {
 
 
 
-        // this.uow.users.searchUsers(this.nom, this.prenom, this.email, this.idRole).subscribe((res: any) => {
+        // this.uow.recipes.searchUsers(this.nom, this.prenom, this.email, this.idRole).subscribe((res: any) => {
         //     this.recentTransactionsDataSource.data = res.query.result
         // })
     }

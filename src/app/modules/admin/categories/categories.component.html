@@ -18,86 +18,31 @@
                 </button>
             </span>
 
-                <button class="ml-auto bg-gray-200" mat-button (click)="openSearchBar()">
-
-                    <mat-icon class="icon-size-5">search</mat-icon>
-                    Recherche
-                </button>
-
             </div>
         </div>
 
 
-        <!-- serch bar-->
-        <div class="flex items-center justify-between w-full mt-[2rem] transition-opacity duration-500 ease-in-out"
-            *ngIf="isSearchBarOpened" [class.opacity-100]="isSearchBarOpened" [class.opacity-0]="!isSearchBarOpened">
-            <!-- Recent transactions table -->
-            <div class="flex flex-col flex-auto overflow-hidden shadow xl:col-span-2 bg-card rounded-2xl">
-                <div class="p-6">
+        <div class="flex flex-col flex-auto w-full pt-4 pb-6 md:pb-8">
 
-                    <div>
-                        <ng-container>
-                            <div class="flex ">
-                                <mat-form-field class="flex-auto ">
-                                    <mat-label>Nom</mat-label>
-                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            <div class="flex items-center">
+                <div class="flex items-center flex-auto">
 
-                                    <input matInput [(ngModel)]="nom">
-
-                                </mat-form-field>
-
-                                <mat-form-field class="flex-auto">
-                                    <mat-label>Prenom</mat-label>
-                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
-                                    <input matInput [(ngModel)]="prenom" [placeholder]="'Name'"
-                                        [spellcheck]="false">
-                                </mat-form-field>
-
-                            </div>
-                        </ng-container>
-
-                        <!-- prenom -->
-                        <div class="">
-                            <mat-form-field class="w-full">
-                                <mat-label>Email</mat-label>
-                                <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                    [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
-                                <input matInput [(ngModel)]="email" [placeholder]="'email'"
-                                    [spellcheck]="false">
-                            </mat-form-field>
-                        </div>
-
-                        <mat-form-field class="w-full">
-
-                            <mat-label>Emails</mat-label>
-
-                            <mat-select matNativeControl [(ngModel)]="idRole"
-                                (selectionChange)="choosenRole($event.value)">
-                                <ng-container *ngFor="let role of roles">
-                                    <mat-option [value]="role.id">{{role.nom}}</mat-option>
-                                </ng-container>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <button class="ml-2 bg-[#2E849D] text-white" mat-flat-button [matTooltip]="'Save'"
-                           (click)="submit()">
-                            Enregistrer
-                        </button>
-
-                        <button class="ml-auto bg-gray-200 "  mat-flat-button [matTooltip]="'Save'"
-                        (click)="openSearchBar()">
-                         Cancel
-                     </button>
-                        <!-- </div> -->
-                    </div>
-
-
-
-
-
-
+                    <mat-form-field
+                        class="flex-auto ml-4 fuse-mat-dense lg:ml-0"
+                        [subscriptSizing]="'dynamic'"
+                    >
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:magnifying-glass'"
+                            matPrefix
+                        ></mat-icon>
+                        <input
+                            [(ngModel)]="searchValue"
+                            (input)="search()"
+                            matInput
+                            placeholder="Search Category"
+                        >
+                    </mat-form-field>
                 </div>
             </div>
         </div>
@@ -106,12 +51,11 @@
 
 
 
-
-        <div class="flex items-center justify-between w-full mt-[2rem]">
+        <div class="flex items-center justify-between w-full ">
             <!-- Recent transactions table -->
             <div class="flex flex-col flex-auto overflow-hidden shadow xl:col-span-2 bg-card rounded-2xl">
                 <div class="p-6">
-                    <div class="mr-4 text-lg font-medium leading-6 tracking-tight truncate">List des utilisateurs</div>
+                    <div class="mr-4 text-lg font-medium leading-6 tracking-tight truncate">List des Categories</div>
                 </div>
                 <div class="mx-6 overflow-x-auto">
                     <table class="w-full bg-transparent" mat-table matSort [dataSource]="recentTransactionsDataSource "

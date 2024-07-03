@@ -1,62 +1,40 @@
-<div class=" w-screen h-screen overflow-x-hidden">
-    <header class="bg-[#FCF8F1]  bg-opacity-30">
-        <div class="px-4 mx-auto sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 lg:h-20">
-                <div class="flex-shrink-0">
-                    <a href="#" title="" class="flex">
-                        <img class="w-auto h-8" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo.svg" alt="" />
-                    </a>
-                </div>
-
-                <button type="button" class="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
-                    <!-- Menu open: "hidden", Menu closed: "block" -->
-                    <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
-                    </svg>
-
-                    <!-- Menu open: "block", Menu closed: "hidden" -->
-                    <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-
-                <div class="hidden lg:flex lg:items-center lg:justify-center lg:space-x-10">
-                    <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80"> Features </a>
-
-                    <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80"> Solutions </a>
-
-                    <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80"> Resources </a>
-
-                    <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80"> Pricing </a>
-                </div>
-
-                <a href="#" title="" class="hidden lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 hover:bg-yellow-300 hover:text-black focus:text-black focus:bg-yellow-300 font-semibold text-white bg-black rounded-full" role="button"> Join Now </a>
-            </div>
-        </div>
-    </header>
+<div class="w-full h-fit">
 
     <section class="bg-[#FCF8F1] bg-opacity-30 py-10 sm:py-16 lg:py-24">
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+            <div class="grid items-center grid-cols-1 lg:gap-24 lg:grid-cols-2">
                 <div>
-                    <p class="text-base font-semibold tracking-wider text-blue-600 uppercase">A social media for learners</p>
-                    <h1 class="mt-4 text-4xl font-bold text-black lg:mt-8 sm:text-6xl xl:text-8xl">Connect & learn from the experts</h1>
-                    <p class="mt-4 text-base text-black lg:mt-8 sm:text-xl">Grow your career fast with right mentor.</p>
-
-                    <a href="#" title="" class="inline-flex items-center px-6 py-4 mt-8 font-semibold text-black transition-all duration-200 bg-yellow-300 rounded-full lg:mt-16 hover:bg-yellow-400 focus:bg-yellow-400" role="button">
-                        Join for free
-                        <svg class="w-6 h-6 ml-8 -mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </a>
-
-                    <p class="mt-5 text-gray-600">Already joined us? <a href="#" title="" class="text-black transition-all duration-200 hover:underline">Log in</a></p>
+                    <h1 class="max-w-2xl mb-4 text-4xl text-[#CF4E0E] font-bold leading-none tracking-tight md:text-5xl xl:text-[3.5rem] dark:text-white">
+                        Cook Like A Pro with Our Easy and Tasty Recipes
+                    </h1>
+                    <p class="mt-4 text-base text-gray-400 lg:mt-2 sm:text-xl">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quidem vitae, assumenda ipsum reiciendis, alias temporibus consequuntur tempor.
+                    </p>
+                    <button class="px-6 mt-2 py-3 w-full lg:w-fit text-center flex justify-center items-center font-semibold text-white bg-[#9E7B5D] uppercase hover:bg-opacity-80">
+                        Discover Our Dishes
+                    </button>
+                    <p class="mt-5 text-gray-600">
+                        Already joined us? <a href="#" title="" class="text-black transition-all duration-200 hover:underline">Log in</a>
+                    </p>
                 </div>
-
                 <div>
-                    <img class="w-full" src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/1/hero-img.png" alt="" />
+                    <img class="w-auto h-auto" src="assets/images/sections/home4.png" alt="Cooking Image">
                 </div>
             </div>
         </div>
+
+        <section class="flex items-center justify-center w-full h-full py-8">
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div *ngFor="let prop of props" class="flex hover-y-1n hover:shadow-xl transition-all hover:scale-110 cursor-pointer duration-300 p-6 transform bg-[#FEFEFE] shadow-lg">
+                    <div class="flex-shrink-0 p-4">
+                        <img [src]="'assets/images/icons/' + prop.img + '.png'" alt="{{prop.title}}" class="w-16 h-16" />
+                    </div>
+                    <div class="flex flex-col justify-center ml-4">
+                        <h2 class="text-2xl text-[#9E7B5D] font-bold">{{prop.title}}</h2>
+                        <p class="mt-2 text-gray-600">{{prop.desc}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </section>
 </div>

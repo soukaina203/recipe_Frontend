@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, tap, take, map } from 'rxjs';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { AuthService } from 'app/core/auth/auth.service';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class UowService {
     readonly uploads= inject(UploadService);
     readonly files = inject(FileUploadService);
     readonly auth = inject(AuthService);
+    readonly session = inject(SessionService);
 
   readonly fuseConfirmation = inject(FuseConfirmationService);
 
