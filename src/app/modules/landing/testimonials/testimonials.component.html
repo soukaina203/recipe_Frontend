@@ -1,16 +1,16 @@
-<div class="p-[11rem]">
+<div class="p-[9rem]">
 
 
 <div class="mb-10 md:mx-auto sm:text-center md:mb-12">
 
-<h2 class="max-w-3xl font-sans text-center mb-2 text-3xl font-bold leading-none tracking-tight text-[#376F00] lg:text-6xl md:mx-auto">
+<h2 class="max-w-3xl font-sans text-center mb-2 text-3xl md:text-[2.6rem]  font-bold leading-none tracking-tight text-[#376F00] lg:text-6xl md:mx-auto">
 What People Say About Our Recipes
     </h2>
-    <p class="text-center hidden md:block text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
+    <p class="text-center hidden  md:block max-w-lg text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
         From comfort food classics to exotic flavors, our featured recipes are sure to impress
       </p>
 </div>
-<div class="relative flex items-center justify-center  md:max-w-full text-black lg:max-w-screen-[37rem]
+<div class="relative flex items-center w-full justify-center  md:max-w-full text-black  lg:max-w-screen-[37rem]
  ml-auto mr-auto  h-fit lg:pb-[4rem] overflow-hidden p-20 ">
     <div [ngClass]="{'w-[300%]': isLargeScreen, 'w-full': !isLargeScreen}"
          [ngStyle]="{'transform': 'translateX(-' + currentIndex * (isLargeScreen ? 33.3333 : 100) + '%)'}"
@@ -18,8 +18,8 @@ What People Say About Our Recipes
 
 
       <div *ngFor="let comment of comments$|async; let index = index"
-           [ngClass]="{'w-[30rem] h-[18rem] ': isLargeScreen, 'w-full': !isLargeScreen}"
-           class="flex flex-col items-center flex-shrink-0 shadow-xl bg-black/85 rounded-tl-[206.22px] rounded-br-[206px]">
+           [ngClass]="{'w-[30rem] h-fit ': isLargeScreen, 'w-full': !isLargeScreen}"
+           class="flex flex-col items-center flex-shrink-0 shadow-lg  bg-black/85 rounded-tl-[206.22px] rounded-br-[206px]">
 
 
 
@@ -32,8 +32,8 @@ What People Say About Our Recipes
 
 
         <div class="mt-4 text-center">
-          <h2 class="mb-2 text-2xl font-semibold text-black uppercase font-Yantramanav-Black">{{comment.content}}</h2>
-          <p class="mb-4 font-semibold text-gray-900">{{comment?.user.nom}} {{comment?.user.prenom}}</p>
+          <h2 class=" lg:max-w-[19rem] md:w-[17rem]  w-full mb-2 font-semibold text-black text-lg font-Yantramanav-Black">{{comment.content}}</h2>
+          <p class="mb-4 font-semibold text-[#376F00] ">{{comment?.user.nom}} {{comment?.user.prenom}}</p>
 
         </div>
       </div>

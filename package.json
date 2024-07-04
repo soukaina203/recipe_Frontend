@@ -24,6 +24,7 @@
         "@angular/platform-browser": "16.0.3",
         "@angular/platform-browser-dynamic": "16.0.3",
         "@angular/router": "16.0.3",
+        "@fortawesome/fontawesome-free": "^6.5.2",
         "@ngneat/transloco": "4.2.7",
         "apexcharts": "3.40.0",
         "crypto-js": "3.3.0",

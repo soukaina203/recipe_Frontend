@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatModule } from 'app/mat.module';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-footer',
   standalone: true,
   imports: [CommonModule,MatModule],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss']
 })
-export class HeaderComponent {
+export class FooterComponent {
 
 }

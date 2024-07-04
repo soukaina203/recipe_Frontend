@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UowService } from 'app/services/uow.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-testimonials',
@@ -28,7 +29,10 @@ export class TestimonialsComponent {
     ngOnInit(): void {
       window.addEventListener('resize', this.handleResize);
 
-      this.comments$=this.uow.comments.getAll()
+      this.comments$ = this.uow.comments.getAll().pipe(
+        take(6)
+      );
+      console.log(this.comments$)
     }
 
     ngOnDestroy(): void {

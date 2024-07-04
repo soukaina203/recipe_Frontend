@@ -1,4 +1,4 @@
-<header class="bg-[#FCF8F1] bg-opacity-30  w-full">
+<!-- <header class="bg-[#FCF8F1] bg-opacity-30  w-full">
     <div class="px-4 mx-auto max-w-screen sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 lg:h-20">
             <div class="flex-shrink-0">
@@ -8,12 +8,10 @@
             </div>
 
             <button type="button" class="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
-                <!-- Menu open: "hidden", Menu closed: "block" -->
                 <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
                 </svg>
 
-                <!-- Menu open: "block", Menu closed: "hidden" -->
                 <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -29,4 +27,57 @@
             <a href="#" title="" class="hidden lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 hover:bg-yellow-300 hover:text-black focus:text-black focus:bg-yellow-300 font-semibold text-white bg-black rounded-full" role="button">Join Now</a>
         </div>
     </div>
-</header>
+</header> -->
+<header>
+    <nav class="z-50 w-full bg-white ">
+      <div class="container flex items-center justify-between m-auto">
+        <div class="flex-shrink-0">
+            <a href="#" title="" class="flex">
+                <img class="w-[8rem] h-[6rem] max-w-full" src="assets/images/logo/dishLogo.png" alt="Dish Logo" />
+            </a>
+        </div>
+        <!-- Main Menu for Large Screens -->
+        <ul class="items-center hidden pr-10 text-base text-black cursor-pointer lg:flex">
+            <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
+                <a >Home  </a>
+              </li>
+              <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
+                <a  >About  </a>
+              </li>
+              <li class="px-6 py-4 duration-500 underlineHover">
+                <a >projects  </a>
+              </li>
+              <li class="px-6 py-4 duration-500 underlineHover">
+                <a  >contact1  </a>
+              </li>
+
+        </ul>
+
+        <a href="#" title="" class="hidden ml-2 lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 hover:bg-yellow-300 hover:text-black focus:text-black focus:bg-yellow-300 font-semibold text-white bg-black rounded-full" role="button">Join Now</a>
+
+
+
+        <!-- Mobile Menu Button -->
+        <button class="lg:hidden group">
+          <mat-icon class="mr-2">menu</mat-icon>
+          <!-- Mobile Menu -->
+          <div class="absolute top-0 z-40 flex items-center w-8/12 h-screen ml-auto transition-all duration-500 bg-gray-900 md:w-5/12 right-full group-focus:right-0">
+            <ul class="flex flex-col items-center w-full text-base font-semibold text-white cursor-pointer">
+                <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
+                    <a  >{{"home"  }}</a>
+                  </li>
+                  <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
+                    <a  (click)="('about')">{{"about"  }}</a>
+                  </li>
+                  <li class="px-6 py-4 duration-500 underlineHover">
+                    <a  (click)="('projects')">{{"projects"  }}</a>
+                  </li>
+                  <li class="px-6 py-4 duration-500 underlineHover">
+                    <a  (click)="('contacts')">{{"contact1"  }}</a>
+                  </li>
+            </ul>
+          </div>
+        </button>
+      </div>
+    </nav>
+  </header>

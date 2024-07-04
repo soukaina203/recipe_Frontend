@@ -1,17 +1,17 @@
 <section>
     <div class="relative px-4 py-16 mx-auto bg-white sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-      <div class="mb-10 md:mx-auto sm:text-center md:mb-[8.5rem] ">
+      <div class="mb-10 md:mx-auto sm:text-center md:pb-[7.1rem]  ">
 
-        <h2 class="max-w-3xl font-sans text-center mb-2 text-3xl font-bold leading-none tracking-tight text-[#376F00] lg:text-6xl md:mx-auto">
+        <h2 class="max-w-3xl font-sans text-center mb-2 text-3xl md:text-[2.6rem] font-bold leading-none tracking-tight text-[#376F00] lg:text-6xl md:mx-auto">
           Popular Recipes You Can't Miss
         </h2>
-        <p class="text-center text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
+        <p class="text-center max-w-lg text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
           From comfort food classics to exotic flavors, our featured recipes are sure to impress
         </p>
       </div>
 
       <div class="grid grid-cols-1 gap-[8rem] md:gap-y-[8rem]  md:gap-x-[1rem] mt-24 md:grid-cols-2 lg:grid-cols-3">
-        <div class="relative flex flex-col w-full p-8 pb-3 duration-300 transform shadow-2xl cursor-pointer gap- h-fit hover:-translate-y-1" *ngFor="let recipe of recipes$ | async">
+        <div class="relative flex flex-col w-full p-8 pb-3 duration-300 transform shadow-xl cursor-pointer gap- h-fit hover:-translate-y-1" *ngFor="let recipe of recipes$ | async">
           <!-- Container for Image and Title -->
           <div class="relative">
             <!-- Image -->

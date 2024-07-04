@@ -7,12 +7,13 @@ import { TopRecipesComponent } from './top-recipes/top-recipes.component';
 import { FlavorsComponent } from './flavors/flavors.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { CtaComponent } from './cta/cta.component';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
   imports: [CommonModule,HeaderComponent,HomeComponent,AboutComponent,TopRecipesComponent,FlavorsComponent,
-    CtaComponent
+    CtaComponent,FooterComponent
     ,TestimonialsComponent],
   templateUrl: './landing-page.component.html',
 })
