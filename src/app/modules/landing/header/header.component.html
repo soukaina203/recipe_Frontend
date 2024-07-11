@@ -1,80 +1,67 @@
-<!-- <header class="bg-[#FCF8F1] bg-opacity-30  w-full">
-    <div class="px-4 mx-auto max-w-screen sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 lg:h-20">
-            <div class="flex-shrink-0">
-                <a href="#" title="" class="flex">
-                    <img class="w-[8rem] h-[6rem] max-w-full" src="assets/images/logo/dishLogo.png" alt="Dish Logo" />
-                </a>
-            </div>
 
-            <button type="button" class="inline-flex p-2 text-black transition-all duration-200 rounded-md lg:hidden focus:bg-gray-100 hover:bg-gray-100">
-                <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path>
-                </svg>
-
-                <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <div class="hidden lg:flex lg:items-center lg:justify-center lg:space-x-10">
-                <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80">Features</a>
-                <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80">Solutions</a>
-                <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80">Resources</a>
-                <a href="#" title="" class="text-base text-black transition-all duration-200 hover:text-opacity-80">Pricing</a>
-            </div>
-
-            <a href="#" title="" class="hidden lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 hover:bg-yellow-300 hover:text-black focus:text-black focus:bg-yellow-300 font-semibold text-white bg-black rounded-full" role="button">Join Now</a>
-        </div>
-    </div>
-</header> -->
 <header>
-    <nav class="z-50 w-full bg-white ">
+    <nav class="z-50 w-full">
       <div class="container flex items-center justify-between m-auto">
         <div class="flex-shrink-0">
             <a href="#" title="" class="flex">
-                <img class="w-[8rem] h-[6rem] max-w-full" src="assets/images/logo/dishLogo.png" alt="Dish Logo" />
+                <img class="w-[8rem] h-[5.5rem] max-w-full" src="assets/images/logo/dishLogo.png" alt="Dish Logo" />
             </a>
         </div>
         <!-- Main Menu for Large Screens -->
-        <ul class="items-center hidden pr-10 text-base text-black cursor-pointer lg:flex">
+        <ul class="items-center hidden pr-10 text-xl font-semibold text-black cursor-pointer lg:flex">
             <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
-                <a >Home  </a>
+                Home
               </li>
               <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
-                <a  >About  </a>
+                About
               </li>
               <li class="px-6 py-4 duration-500 underlineHover">
-                <a >projects  </a>
+                Projects
               </li>
               <li class="px-6 py-4 duration-500 underlineHover">
-                <a  >contact1  </a>
+                Contact
               </li>
 
         </ul>
 
-        <a href="#" title="" class="hidden ml-2 lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 hover:bg-yellow-300 hover:text-black focus:text-black focus:bg-yellow-300 font-semibold text-white bg-black rounded-full" role="button">Join Now</a>
+        <button
+        routerLink="/user"
 
+        class= " px-6 mt-2 hidden lg:block py-3 w-fit lg:w-fit before:ease relative h-12  font-semibold overflow-hidden rounded-3xl border-2 text-black border-[#376F00]
+         "
+         >
+            <span class="relative z-10">
+               Discover
+
+            </span>
+          </button>
 
 
         <!-- Mobile Menu Button -->
-        <button class="lg:hidden group">
+        <button class=" lg:hidden group">
           <mat-icon class="mr-2">menu</mat-icon>
           <!-- Mobile Menu -->
-          <div class="absolute top-0 z-40 flex items-center w-8/12 h-screen ml-auto transition-all duration-500 bg-gray-900 md:w-5/12 right-full group-focus:right-0">
-            <ul class="flex flex-col items-center w-full text-base font-semibold text-white cursor-pointer">
-                <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
-                    <a  >{{"home"  }}</a>
+          <div class=" fixed top-0 z-40 flex items-center w-8/12 h-screen ml-auto transition-all duration-500 bg-[#376F00] md:w-5/12 right-full group-focus:right-0">
+            <ul class="flex  flex-col text-[#D0A614]  items-center w-full text-xl font-semibold  cursor-pointer">
+
+                <li class="w-full px-6 py-4 uppercase duration-500 rounded-lg hover:text-">
+                    Home
                   </li>
-                  <li class="px-6 py-4 duration-500 underlineHover hover:pointer-auto">
-                    <a  (click)="('about')">{{"about"  }}</a>
+                  <li class="w-full px-6 py-4 uppercase duration-500 rounded-lg ">
+                    About
                   </li>
-                  <li class="px-6 py-4 duration-500 underlineHover">
-                    <a  (click)="('projects')">{{"projects"  }}</a>
+                  <li class="w-full px-6 py-4 uppercase duration-500 rounded-lg">
+                    Projects
                   </li>
-                  <li class="px-6 py-4 duration-500 underlineHover">
-                    <a  (click)="('contacts')">{{"contact1"  }}</a>
+                  <li class="w-full px-6 py-4 uppercase duration-500 rounded-lg">
+                    Contact
                   </li>
+
+                  <li class="w-full px-6 py-4 uppercase duration-500 rounded-lg">
+                    Discover
+                  </li>
+
+
             </ul>
           </div>
         </button>

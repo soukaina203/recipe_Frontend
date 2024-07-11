@@ -20,7 +20,7 @@
                                 Et purus duis sollicitudin dignissim habitant. Egestas nulla quis venenatis cras sed eu
                                 massa eu faucibus. Urna fusce
                             </p>
-                            <div class="flex flex-col gap-7 text-[16px]  md:flex-row md:justify-between">
+                            <div class="flex flex-col gap-7 text-[16px]  md:flex-row md:justify-evenly lg:justify-between">
                                 <ul key="1">
                                     <li *ngFor="let advantage of advantages[0].props " class='flex p-2'>
                                         <mat-icon class='text-[#D0A614] w-6 h-6 mr-3'> done_all
@@ -43,16 +43,31 @@
                             </div>
                             <div class="flex flex-col gap-2 md:flex-row">
 
-                            <button class="px-6 mt-2 py-3 w-full lg:w-fit  text-center flex justify-center items-center
-                              font-semibold text-white bg-[#BFA03A] uppercase hover:bg-opacity-80 ">
-                                Read More
+                                <button
+                                routerLink="/user"
 
-                            </button>
-                            <button class="px-6 mt-2 py-3 w-full lg:w-fit  text-center flex justify-center items-center
-                            font-semibold text-white bg-[#C7C276] uppercase hover:bg-opacity-80 ">
-                              Read More
+                                class= " px-6 mt-2 py-3 w-full lg:w-fit before:ease relative h-12  text-white font-semibold overflow-hidden bg-[#BFA03A]
+                                shadow-2xl transition-all before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45
+                                 before:bg-white before:duration-300  uppercase hover:bg-opacity-80 hover:text-[#BFA03A] hover:shadow-[#BFA03A] hover:before:h-64 hover:before:-translate-y-32">
+                                    <span class="relative z-10">
+                                        Read More
 
-                          </button>
+                                    </span>
+                                  </button>
+
+
+                                  <button
+                                  routerLink="/user"
+
+                                  class= " px-6 mt-2 py-3 w-full lg:w-fit before:ease relative h-12  text-white font-semibold overflow-hidden bg-[#C7C276]
+                                  shadow-2xl transition-all before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45
+                                   before:bg-white before:duration-300  uppercase hover:bg-opacity-80 hover:text-[#C7C276] hover:shadow-[#C7C276] hover:before:h-64 hover:before:-translate-y-32">
+                                      <span class="relative z-10">
+                                          Read More
+
+                                      </span>
+                                    </button>
+
                         </div>
 
                         </div>

@@ -1,16 +1,15 @@
 <section>
-    <div class="relative px-4 py-16 mx-auto bg-white sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-      <div class="mb-10 md:mx-auto sm:text-center md:pb-[7.1rem]  ">
-
-        <h2 class="max-w-3xl font-sans text-center mb-2 text-3xl md:text-[2.6rem] font-bold leading-none tracking-tight text-[#376F00] lg:text-6xl md:mx-auto">
+    <div class="relative px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div class="mb-[9.5rem] md:mx-auto sm:text-center md:pb-[6rem]">
+        <h2 class="max-w-3xl font-sans text-center mb-2 text-5xl md:text-[2.6rem] lg:text-6xl font-bold leading-none tracking-tight text-[#376F00]  md:mx-auto">
           Popular Recipes You Can't Miss
         </h2>
-        <p class="text-center max-w-lg text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
+        <p class="text-center max-w-md md:max-w-lg text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
           From comfort food classics to exotic flavors, our featured recipes are sure to impress
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-[8rem] md:gap-y-[8rem]  md:gap-x-[1rem] mt-24 md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid grid-cols-1 gap-[8rem] md:gap-y-[8rem] md:gap-x-[1rem] mt-24 md:grid-cols-2 lg:grid-cols-3">
         <div class="relative flex flex-col w-full p-8 pb-3 duration-300 transform shadow-xl cursor-pointer gap- h-fit hover:-translate-y-1" *ngFor="let recipe of recipes$ | async">
           <!-- Container for Image and Title -->
           <div class="relative">
@@ -21,18 +20,28 @@
                 [src]="recipe.image === 'string' ? 'assets/images/pics/blank.png' : 'http://localhost:5228/recipes/' + recipe.image">
             </ng-container>
             <!-- Title and Description -->
-            <div class="relative pt-28"> <!-- Adjust pt-24 to pt-28 to move the text down accordingly -->
+            <div class="relative pt-28">
               <h6 class="p-5 pb-0 mt-5 mb-3 text-3xl font-bold leading-5 text-center uppercase">{{recipe.title}}</h6>
-              <p class="text-lg text-center text-gray-900">{{recipe.description}}</p> <!-- Adjusted mb-3 to mb-5 for more spacing -->
+              <p class="mt-5 text-lg text-center text-gray-900">{{recipe.description}}</p>
             </div>
           </div>
 
           <!-- Read More Button -->
-          <button class="px-4 mt-3 py-3 w-full text-center flex justify-center items-center font-semibold text-[#376F00] uppercase hover:bg-opacity-80">
-            Read More
-          </button> <!-- Adjusted px-2 to px-4, mt-2 to mt-4, and mb-5 to mb-4 for better spacing -->
+          <button
+          routerLink="/user"
+
+          class= " w-full ml-auto mr-auto mt-3 font-bold text-lg
+          md:px-10  text-center border-2
+         items-center  mb-2   lg:w-full before:ease relative h-12 text-[#376F00] border-[#376F00]  overflow-hidden bg-transparent
+           transition-all before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45
+           before:bg-[#376F00] before:duration-300  uppercase hover:bg-[#376F00] hover:text-white hover:shadow-[#D0A614] hover:before:h-64 hover:before:-translate-y-32">
+              <span class="relative z-10">
+                           Read More
+
+
+              </span>
+            </button>
         </div>
       </div>
-
     </div>
   </section>

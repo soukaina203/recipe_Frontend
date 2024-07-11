@@ -49,7 +49,7 @@ export class UsersComponent {
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
     recentTransactionsTableColumns: string[] = ['id', 'name', 'email',
-        'role', 'actions'];
+        'roles', 'actions'];
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     myForm: FormGroup;

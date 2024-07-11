@@ -1,52 +1,37 @@
-<div class="p-[9rem]">
-
-
-<div class="mb-10 md:mx-auto sm:text-center md:mb-12">
-
-<h2 class="max-w-3xl font-sans text-center mb-2 text-3xl md:text-[2.6rem]  font-bold leading-none tracking-tight text-[#376F00] lg:text-6xl md:mx-auto">
-What People Say About Our Recipes
-    </h2>
-    <p class="text-center hidden  md:block max-w-lg text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
+<div class="p-4 md:p-[9rem] flex flex-col mb-[15.75rem] md:mb-0 ">
+    <div class="mb-10 md:mx-auto sm:text-center md:mb-12">
+      <h2 class="max-w-3xl font-sans text-center mb-2 text-5xl md:text-[2.6rem] font-bold leading-none tracking-tight text-[#376F00] lg:text-6xl md:mx-auto">
+        What People Say About Our Recipes
+      </h2>
+      <p class="text-center hidden md:block max-w-lg text-[#9E7B5D] lg:max-w-xl mr-auto ml-auto font-medium text-xl">
         From comfort food classics to exotic flavors, our featured recipes are sure to impress
       </p>
-</div>
-<div class="relative flex items-center w-full justify-center  md:max-w-full text-black  lg:max-w-screen-[37rem]
- ml-auto mr-auto  h-fit lg:pb-[4rem] overflow-hidden p-20 ">
-    <div [ngClass]="{'w-[300%]': isLargeScreen, 'w-full': !isLargeScreen}"
-         [ngStyle]="{'transform': 'translateX(-' + currentIndex * (isLargeScreen ? 33.3333 : 100) + '%)'}"
-         class="flex mb-8 transition-transform duration-500 ease-in-out lg:mb-0 gap-[2rem] ">
+    </div>
 
-
-      <div *ngFor="let comment of comments$|async; let index = index"
-           [ngClass]="{'w-[30rem] h-fit ': isLargeScreen, 'w-full': !isLargeScreen}"
-           class="flex flex-col items-center flex-shrink-0 shadow-lg  bg-black/85 rounded-tl-[206.22px] rounded-br-[206px]">
-
-
-
-        <img
-        [src]="comment?.user.image==='string'?
-        'assets/images/pics/blank.png'
-         : 'http://localhost:5228/users/'+comment?.user.image"
-        class="w-32 h-32 mt-auto mb-auto rounded-full"
-    >
-
-
-        <div class="mt-4 text-center">
-          <h2 class=" lg:max-w-[19rem] md:w-[17rem]  w-full mb-2 font-semibold text-black text-lg font-Yantramanav-Black">{{comment.content}}</h2>
-          <p class="mb-4 font-semibold text-[#376F00] ">{{comment?.user.nom}} {{comment?.user.prenom}}</p>
-
+    <div class="relative flex items-center w-full justify-center text-black  h-fit lg:pb-[4rem] overflow-hidden p-4 lg:p-20">
+      <div [ngClass]="{'w-[300%]': isLargeScreen, 'w-full': !isLargeScreen}"
+           [ngStyle]="{'transform': 'translateX(-' + currentIndex * (isLargeScreen ? 33.3333 : 100) + '%)'}"
+           class="flex mb-8 transition-transform duration-500 ease-in-out lg:mb-0 gap-4 lg:gap-[2rem]">
+        <div *ngFor="let comment of comments$ | async; let index = index"
+             [ngClass]="{'w-[30rem]': isLargeScreen, 'w-full': !isLargeScreen}"
+             class="flex flex-col items-center flex-shrink-0 shadow-lg bg-black/85 rounded-tl-[206.22px] rounded-br-[206px] p-4">
+          <img [src]="comment?.user.image === 'string' ? 'assets/images/pics/blank.png' : 'http://localhost:5228/users/' + comment?.user.image"
+               class="w-32 h-32 mt-auto mb-auto rounded-full">
+          <div class="mt-4 text-center">
+            <h2 class="lg:max-w-[19rem] md:w-[17rem] w-full mb-2 font-semibold text-black text-lg font-Yantramanav-Black">{{comment.content}}</h2>
+            <p class="mb-4 font-semibold text-[#376F00] ">{{comment?.user.nom}} {{comment?.user.prenom}}</p>
+          </div>
         </div>
       </div>
+      <button class="absolute p-2 text-black transform -translate-y-1/2 top-1/2 left-2 bg-white rounded-md hover:text-white hover:bg-[#D0A614]" (click)="handlePrev()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoinround d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button class="absolute p-2 text-black transform -translate-y-1/2 top-1/2 right-2 bg-white rounded-md hover:text-white hover:bg-[#D0A614]" (click)="handleNext()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoinround d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
     </div>
-    <button class="absolute p-2 text-black transform -translate-y-1/2 top-1/2 left-2 bg-white rounded-md hover:text-white hover:bg-[#D0A614]" (click)="handlePrev()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
-    <button class="absolute p-2 text-black transform -translate-y-1/2 top-1/2 right-2 bg-white rounded-md hover:text-white hover:bg-[#D0A614]" (click)="handleNext()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
   </div>
-</div>

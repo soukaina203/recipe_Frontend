@@ -2,7 +2,7 @@
 <fuse-loading-bar></fuse-loading-bar>
 
 <!-- Navigation -->
-<fuse-vertical-navigation class="bg-[#2E849D] dark print:hidden " [mode]="isScreenSmall ? 'over' : 'side'"
+<fuse-vertical-navigation class="bg-[#97A0A9] dark print:hidden " [mode]="isScreenSmall ? 'over' : 'side'"
     [name]="'mainNavigation'" [navigation]="navigation.default" [opened]="!isScreenSmall">
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationContentHeader>
@@ -13,7 +13,6 @@
             </div>
             <!-- Components -->
             <div class="flex items-center ml-auto">
-                <notifications></notifications>
             </div>
         </div>
         <!-- User -->
@@ -23,7 +22,7 @@
              <img [src]="user.image==='string'?
                     'assets/images/pics/blank.png'
                      : 'http://localhost:5228/users/'+user.image"
-                     class="w-full h-full border-2 border-black rounded-full" />
+                     class="w-full h-full rounded-full" />
 
                 <!-- <mat-icon
                     class="icon-size-24"
@@ -36,7 +35,7 @@
                     {{user.nom}} {{user.prenom}}
                 </div>
                 <div
-                    class="w-full mt-0.5 whitespace-nowrap text-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    class="w-full mt-0.5 whitespace-nowrap text-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-ellipsis">
                     {{user.email}}
                 </div>
             </div>

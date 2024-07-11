@@ -47,7 +47,7 @@ export class CategoriesComponent {
     data: any;
     accountBalanceOptions: ApexOptions;
     recentTransactionsDataSource: any = new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = ['id', 'name',
+    recentTransactionsTableColumns: string[] = ['id','image', 'name',
     'actions'];
     permanentData:MatTableDataSource<any> = new MatTableDataSource();
 
