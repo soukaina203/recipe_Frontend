@@ -10,7 +10,9 @@
         "start": "ng serve",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "prod": "ng build --progress --configuration=production --output-path dist"
+
     },
     "dependencies": {
         "@angular/animations": "16.0.3",
