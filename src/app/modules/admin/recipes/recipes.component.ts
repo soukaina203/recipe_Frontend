@@ -25,7 +25,7 @@ import { Recipe } from 'app/models/Recipe';
     MatPaginatorModule,
     MatModule,
     MatMenuModule, MatDividerModule, NgApexchartsModule,
-    MatTableModule, MatSortModule, NgClass,
+    MatTableModule, MatSortModule, NgClass,FormsModule,
     RouterModule,
     FormsModule,
     MatProgressBarModule, CurrencyPipe, DatePipe],

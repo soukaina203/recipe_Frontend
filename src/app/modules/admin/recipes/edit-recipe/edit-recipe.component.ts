@@ -55,7 +55,9 @@ export class EditRecipeComponent {
         this.id = this.route.snapshot.paramMap.get('id');
 
         this.uow.recipes.getOne(this.id).subscribe((res:any) => {
-            this.recipe = res.recipe;
+            this.recipe = res;
+            console.log("=========")
+            console.log(res)
             this.comments=res.comments;
             this.likes=res.likes;
             this.createForm();
@@ -68,7 +70,7 @@ export class EditRecipeComponent {
     }
     createForm(){
         this.myForm = this.fb.group({
-            id: [this.recipe.id ?? 0],
+            id: [this.recipe.id ],
             title: [this.recipe.title, Validators.minLength(3)],
             description: [this.recipe.description, Validators.minLength(3)],
             ingredients: [this.recipe.ingredients],
