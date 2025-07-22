@@ -7,35 +7,40 @@
             class="w-2/3 border-r-0 sm:w-72 lg:w-56 bg-default"
             [mode]="drawerMode"
             [opened]="drawerOpened"
-            #drawer>
+            #drawer
+        >
             <div class="p-6 lg:py-8 lg:pl-4 lg:pr-0">
                 <!-- Filters -->
                 <div class="space-y-2">
                     <div
-                    class="relative flex items-center px-4 py-2 font-medium rounded-full cursor-pointer"
-                    [ngClass]="{'bg-gray-200 dark:bg-gray-700 text-primary dark:text-primary-400': filterStatus === 'notes',
-                            'text-hint hover:bg-hover': filterStatus !== 'notes'}"
-                    (click)="getAllCategories()"
-                    matRipple
-                    [matRippleDisabled]="filterStatus === 'notes'">
-                    <mat-icon
-                        class="text-current"
-                        [svgIcon]="'heroicons_outline:pencil-square'"></mat-icon>
-                    <div class="ml-3 leading-5 select-none text-default"> All</div>
-                </div>
+                        class="relative flex items-center px-4 py-2 font-medium rounded-full cursor-pointer"
+                        ngClass="text-[#376F00] bg-gray-200 dark:bg-gray-700 dark:text-primary-400"
+                        (click)="category.setValue(0)"
 
-                    <!-- Notes -->
-                    <div *ngFor="let category of categories$ | async"
-                    class="relative flex items-center px-4 py-2 font-medium rounded-full cursor-pointer"
-                        [ngClass]="{'bg-gray-200 dark:bg-gray-700 text-primary dark:text-primary-400': filterStatus === 'notes',
-                                'text-hint hover:bg-hover': filterStatus !== 'notes'}"
-                        (click)="chooseCategory(category.id)"
                         matRipple
-                        [matRippleDisabled]="filterStatus === 'notes'">
+                        [matRippleDisabled]="filterStatus === 'notes'"
+                    >
                         <mat-icon
                             class="text-current"
-                            [svgIcon]="'heroicons_outline:pencil-square'"></mat-icon>
-                        <div class="ml-3 leading-5 select-none text-default"> {{category.nom}} </div>
+                            [svgIcon]="'heroicons_outline:pencil-square'"
+                        ></mat-icon>
+                        <div class="ml-3 leading-5 select-none text-default">All</div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div
+                        *ngFor="let e of categories$ | async"
+                        class="relative flex items-center px-4 py-2 font-medium text-[#376F00] rounded-full cursor-pointer"
+                        ngClass=" text-[#376F00] bg-gray-200 dark:bg-gray-700"
+                        (click)="category.setValue(e.id)"
+                        matRipple
+                        [matRippleDisabled]="filterStatus === 'notes'"
+                    >
+                        <mat-icon
+                            class="text-current"
+                            [svgIcon]="'heroicons_outline:pencil-square'"
+                        ></mat-icon>
+                        <div class="ml-3 leading-5 select-none text-default">{{e.nom}}</div>
                     </div>
 
                 </div>
@@ -53,74 +58,82 @@
                         <button
                             class="flex -ml-2 lg:hidden"
                             mat-icon-button
-                            (click)="drawer.toggle()">
+                            (click)="drawer.toggle()"
+                        >
                             <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
                         </button>
                         <mat-form-field
                             class="flex-auto ml-4 fuse-mat-rounded fuse-mat-dense lg:ml-0"
-                            [subscriptSizing]="'dynamic'">
+                            [subscriptSizing]="'dynamic'"
+                        >
                             <mat-icon
                                 class="icon-size-5"
                                 [svgIcon]="'heroicons_solid:magnifying-glass'"
-                                matPrefix></mat-icon>
-                                <input
-                                [(ngModel)]="searchValue"
-                                (input)="search()"
+                                matPrefix
+                            ></mat-icon>
+                            <input
+                                [formControl]="search"
                                 matInput
                                 placeholder="Search Recipe"
-                              >
+                            >
                         </mat-form-field>
                     </div>
                     <!-- New note -->
-                    <button
-                        class="px-1 ml-4 sm:px-4 min-w-10"
-                        mat-flat-button
-                        [color]="'primary'"
-                        >
-                        <mat-icon
-                            class="icon-size-5"
-                            [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                        <span class="hidden ml-2 sm:inline-block">New note</span>
-                    </button>
+
                 </div>
 
-
-
                 <!-- Notes -->
-                <ng-container *ngIf="recipes else loading">
+                <ng-container *ngIf="recipes$ | async as recipes; else loading">
                     <ng-container *ngIf="recipes.length > 0; else noNotes">
                         <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 sm:mt-10">
                             <!-- Column -->
-                            <ng-container *ngFor="let note of recipes; trackBy: trackByFn">
-                                <!-- Note -->
-                                <a [routerLink]="['/user/recipe','list', note.id]" routerLinkActive="router-link-active">
+                            <ng-container *ngFor="let recipe of recipes; trackBy: trackByFn">
+                                <!-- recipe -->
+                                <a
+                                    [routerLink]="['/user/recipe','list', recipe.id]"
+                                    routerLinkActive="router-link-active"
+                                >
                                     <div class="flex flex-col h-full overflow-hidden shadow cursor-pointer rounded-2xl bg-card">
                                         <!-- Image -->
-                                        <ng-container *ngIf="note.image">
+                                        <ng-container *ngIf="recipe.image">
                                             <img
-                                                class="object-cover w-full h-48"
-                                                [src]="note.image === 'string' ? 'assets/images/pics/blank.png' : 'http://localhost:5228/recipes/' + note.image">
+                                                class="object-cover w-full h-72"
+                                                [src]="recipe.image === 'string' ? 'assets/images/pics/blank.png' : 'http://localhost:5228/recipes/' + recipe.image"
+                                            >
                                         </ng-container>
-                                        <div class="flex flex-col flex-auto p-6 space-y-4">
+                                        <div class="flex flex-col items-center justify-between flex-auto p-6 space-y-2 md:flex-row">
                                             <!-- Title -->
-                                            <ng-container *ngIf="note.title">
-                                                <div class="font-semibold line-clamp-3">
-                                                    {{note.title}}
+                                            <ng-container *ngIf="recipe.title">
+                                                <h1 class="text-3xl font-semibold text-[#376F00] ">{{recipe.title}}</h1>
+
+                                                <div class="flex flex-col gap-2 md:flex-row">
+
+                                                    <div class="flex items-center space-x-2 font-semibold line-clamp-3">
+                                                        <mat-icon
+                                                            class="text-red-500 icon-size-5"
+                                                            [svgIcon]="'heroicons_solid:heart'"
+                                                        ></mat-icon>
+                                                        <span class="">{{ recipe.likeCount }} Likes</span>
+                                                    </div>
+
+                                                    <div class="flex items-center space-x-2 font-semibold line-clamp-3">
+                                                        <mat-icon svgIcon="heroicons_outline:chat-bubble-left-right"></mat-icon>
+                                                        <span class="mr-1">{{recipe.commentCount}} Comments</span>
+
+                                                    </div>
                                                 </div>
+
                                             </ng-container>
                                             <!-- Content -->
-                                            <ng-container *ngIf="note.content">
-                                                <div [class.text-xl]="note.content.length < 70">
-                                                    {{note.description}}
-                                                </div>
+                                            <ng-container *ngIf="recipe.content">
+                                                <div [class.text-xl]="recipe.content.length < 70">{{recipe.description}}</div>
                                             </ng-container>
                                         </div>
                                     </div>
                                 </a>
                             </ng-container>
                         </div>
-
-                            </ng-container>
+                    </ng-container>
                 </ng-container>
 
                 <!-- Loading template -->
@@ -135,7 +148,8 @@
                     <div class="flex flex-col items-center justify-center flex-auto bg-gray-100 dark:bg-transparent">
                         <mat-icon
                             class="icon-size-24"
-                            [svgIcon]="'heroicons_outline:document'"></mat-icon>
+                            [svgIcon]="'heroicons_outline:document'"
+                        ></mat-icon>
                         <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">There are no Recipes!</div>
                     </div>
                 </ng-template>

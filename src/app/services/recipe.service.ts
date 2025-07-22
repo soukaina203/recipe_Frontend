@@ -13,4 +13,7 @@ export class RecipeService extends SuperService<Recipe> {
     }
 
 
+    getByCategory = (id: any) => this.http.get<Recipe[]>(`${this.urlApi}/${this.controller}/getByCategory/${id}`);
+
+
 }

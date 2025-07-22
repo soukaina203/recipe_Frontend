@@ -12,6 +12,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
 
     {
+        id   : 'home',
+        title: 'Home',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : 'user/Recipes'
+    },
+    {
         id   : 'profile1',
         title: 'Profile',
         type : 'basic',

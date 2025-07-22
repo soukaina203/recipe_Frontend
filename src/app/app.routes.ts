@@ -60,6 +60,7 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver
         },
         children: [
+
             {path: 'user', loadChildren: () => import('app/modules/user/user.routes')},
         ]
     }

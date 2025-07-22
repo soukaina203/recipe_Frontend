@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatModule } from 'app/mat.module';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -7,6 +7,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { Recipe } from 'app/models/Recipe';
 import { Like } from 'app/models/LIke';
 import { commentaire } from 'app/models/Comment';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-recipe-detail',
@@ -16,7 +17,16 @@ import { commentaire } from 'app/models/Comment';
     styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent {
-    id: any = 0;
+    private route=inject(ActivatedRoute);
+    private uow= inject(UowService);
+    private fb=inject(FormBuilder);
+
+    private sanitizer=inject(DomSanitizer)
+
+
+    id: any = this.route.snapshot.paramMap.get('id');
+    component = this.route.snapshot.paramMap.get('component');
+
     recipe = new Recipe(); // Initialize the user object
     isLiked: boolean = false;
     linkesCount: number
@@ -27,8 +37,8 @@ export class RecipeDetailComponent {
     commentContent: string = ''
     openComment: boolean = false
     comments: commentaire[] = []
-    component:string=''
-
+    safeIngredients: SafeHtml;
+    safeInstructions: SafeHtml;
     readonly myForm = this.fb.group({
         id: [this.comment.id ?? 0],
         content: [this.comment.content],
@@ -46,28 +56,20 @@ export class RecipeDetailComponent {
 
                 this.connectedUser=res
             }
-            console.log("hell")
            })
     }
-    constructor(
-        private uow: UowService,
-        private route: ActivatedRoute,
-        private fb: FormBuilder
 
-
-
-    ) { }
     ngOnInit(): void {
-        this.component = this.route.snapshot.paramMap.get('component');
 
         const localStorage1 = localStorage.getItem('user');
         if (localStorage1) {
             this.connectedUser = JSON.parse(localStorage1)
         }
 
-        this.id = this.route.snapshot.paramMap.get('id');
         this.uow.recipes.getOne(this.id).subscribe((res) => {
             this.recipe = res;
+            this.safeIngredients = this.sanitizer.bypassSecurityTrustHtml(this.convertNewlinesToBreaks(res.ingredients));
+            this.safeInstructions = this.sanitizer.bypassSecurityTrustHtml(this.convertNewlinesToBreaks(res.instructions));
 
         });
 
@@ -91,6 +93,9 @@ export class RecipeDetailComponent {
 
 
     }
+    convertNewlinesToBreaks(text: string): string {
+        return text.replace(/\n/g, '<br>');
+      }
 
     getCommentsOfRecipe() {
         this.uow.comments.getCommentOfaRecipe(this.id).subscribe((res: any) => {

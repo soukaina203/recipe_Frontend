@@ -13,6 +13,12 @@ export default [
         component: NotesListComponent,
     },
 
+
+    {
+        path     : 'Recipes',
+        component: NotesListComponent,
+    },
+
     {
         path     : 'recipe/:component/:id',
         component: RecipeDetailComponent,

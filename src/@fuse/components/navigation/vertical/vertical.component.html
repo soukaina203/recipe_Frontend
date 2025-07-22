@@ -1,6 +1,4 @@
-<div class="fuse-vertical-navigation-wrapper"
-
->
+<div class="fuse-vertical-navigation-wrapper">
 
     <!-- Header -->
     <div class="fuse-vertical-navigation-header">
@@ -8,11 +6,8 @@
     </div>
 
     <!-- Content -->
-    <div
-        class="fuse-vertical-navigation-content"
-        fuseScrollbar
-        [fuseScrollbarOptions]="{wheelPropagation: inner, suppressScrollX: true}"
-        #navigationContent>
+    <div class="fuse-vertical-navigation-content" fuseScrollbar
+        [fuseScrollbarOptions]="{wheelPropagation: inner, suppressScrollX: true}" #navigationContent>
 
         <!-- Content header -->
         <div class="fuse-vertical-navigation-content-header">
@@ -27,59 +22,46 @@
 
                 <!-- Aside -->
                 <ng-container *ngIf="item.type === 'aside'">
-                    <fuse-vertical-navigation-aside-item
-                        [item]="item"
-                        [name]="name"
-                        [activeItemId]="activeAsideItemId"
-                        [autoCollapse]="autoCollapse"
-                        [skipChildren]="true"
+                    <fuse-vertical-navigation-aside-item [item]="item" [name]="name" [activeItemId]="activeAsideItemId"
+                        [autoCollapse]="autoCollapse" [skipChildren]="true"
                         (click)="toggleAside(item)"></fuse-vertical-navigation-aside-item>
                 </ng-container>
 
-                <!-- Basic -->
-                <ng-container *ngIf="item.type === 'basic'">
-                    <ng-container *ngIf="user.isAdmin === 1 && item.id !== 'profile1' && item.id!=='likedRecipes' ">
-                    <fuse-vertical-navigation-basic-item
-                        [item]="item"
-                        [name]="name"></fuse-vertical-navigation-basic-item>
+                <!-- Basic for Admin user -->
+                <ng-container *ngIf="item.type === 'basic' && user.isAdmin === 1">
+                    <ng-container *ngIf="item.id !== 'profile1' && item.id !== 'likedRecipes' && item.id!=='home'">
+                        <fuse-vertical-navigation-basic-item [item]="item" [name]="name"></fuse-vertical-navigation-basic-item>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
 
-            <ng-container *ngIf="item.type === 'basic'">
-                <ng-container *ngIf="(item.id === 'profile1' && user.isAdmin === 0 && item.id==='likedRecipes'  )">
-                <fuse-vertical-navigation-basic-item
-                    [item]="item"
-                    [name]="name"></fuse-vertical-navigation-basic-item>
-            </ng-container>
-        </ng-container>
+                <!-- Basic for normal user -->
+                <ng-container *ngIf="item.type === 'basic' && user.isAdmin === 0">
+                    <ng-container *ngIf="item.id === 'profile1' || item.id === 'likedRecipes' || item.id==='home' ">
+                        <fuse-vertical-navigation-basic-item [item]="item" [name]="name"></fuse-vertical-navigation-basic-item>
+                    </ng-container>
+                </ng-container>
 
                 <!-- Collapsable -->
                 <ng-container *ngIf="item.type === 'collapsable'">
-                    <fuse-vertical-navigation-collapsable-item
-                        [item]="item"
-                        [name]="name"
+                    <fuse-vertical-navigation-collapsable-item [item]="item" [name]="name"
                         [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
                 </ng-container>
 
                 <!-- Divider -->
                 <ng-container *ngIf="item.type === 'divider'">
-                    <fuse-vertical-navigation-divider-item
-                        [item]="item"
+                    <fuse-vertical-navigation-divider-item [item]="item"
                         [name]="name"></fuse-vertical-navigation-divider-item>
                 </ng-container>
 
                 <!-- Group -->
                 <ng-container *ngIf="item.type === 'group'">
-                    <fuse-vertical-navigation-group-item
-                        [item]="item"
-                        [name]="name"
+                    <fuse-vertical-navigation-group-item [item]="item" [name]="name"
                         [autoCollapse]="autoCollapse"></fuse-vertical-navigation-group-item>
                 </ng-container>
 
                 <!-- Spacer -->
                 <ng-container *ngIf="item.type === 'spacer'">
-                    <fuse-vertical-navigation-spacer-item
-                        [item]="item"
+                    <fuse-vertical-navigation-spacer-item [item]="item"
                         [name]="name"></fuse-vertical-navigation-spacer-item>
                 </ng-container>
 
@@ -103,13 +85,9 @@
 
 <!-- Aside -->
 <ng-container *ngIf="activeAsideItemId">
-    <div
-        class="fuse-vertical-navigation-aside-wrapper"
-        fuseScrollbar
-        [fuseScrollbarOptions]="{wheelPropagation: false, suppressScrollX: true}"
-        [@fadeInLeft]="position === 'left'"
-        [@fadeInRight]="position === 'right'"
-        [@fadeOutLeft]="position === 'left'"
+    <div class="fuse-vertical-navigation-aside-wrapper" fuseScrollbar
+        [fuseScrollbarOptions]="{wheelPropagation: false, suppressScrollX: true}" [@fadeInLeft]="position === 'left'"
+        [@fadeInRight]="position === 'right'" [@fadeOutLeft]="position === 'left'"
         [@fadeOutRight]="position === 'right'">
 
         <!-- Items -->
@@ -120,9 +98,7 @@
 
                 <!-- Aside -->
                 <ng-container *ngIf="item.type === 'aside' && item.id === activeAsideItemId">
-                    <fuse-vertical-navigation-aside-item
-                        [item]="item"
-                        [name]="name"
+                    <fuse-vertical-navigation-aside-item [item]="item" [name]="name"
                         [autoCollapse]="autoCollapse"></fuse-vertical-navigation-aside-item>
                 </ng-container>
 

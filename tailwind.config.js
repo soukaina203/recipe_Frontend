@@ -23,6 +23,7 @@ const themes = {
             ...colors.indigo,
             DEFAULT: colors.indigo[600]
         },
+
         accent   : {
             ...colors.slate,
             DEFAULT: colors.slate[800]

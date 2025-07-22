@@ -1,6 +1,6 @@
 <input hidden [multiple]="false" accept="image/*" #file1 type="file" (change)="onFileSelected($event)">
 <!-- Creation mode -->
-<div class=" h-[203px] w-[270px] ml-auto mr-auto border-2 border-gray-300 bg-slate-200" *ngIf='image===undefined|| image==="string"'>
+<div class=" w-[244px] h-[224px] ml-auto mr-auto border-2 border-gray-300 bg-slate-200" *ngIf='image===undefined|| image==="string"'>
     <mat-radio-group aria-label="Select an option">
         <div class="flex flex-wrap w-full">
 
@@ -9,10 +9,10 @@
                 <div *ngIf="uploaded " class="relative">
 
                     <img [src]="previewUrl" *ngIf="image!=='string'" alt="Image Preview"
-                        class="bg-cover  w-[270px] h-[200px]   " />
+                        class="bg-cover  w-[244px] h-[224px]   " />
 
                         <img src="assets/images/pics/blank.png" *ngIf="image==='string'" alt="Image Preview"
-                        class="bg-cover  w-[270px] h-[170px]   " />
+                        class="bg-cover  w-[244px] h-[224px]   " />
 
                     <div class="absolute top-0 right-0 flex items-center justify-center">
                         <button mat-icon-button color="warn" (click)="remove()" type="button">
@@ -33,7 +33,7 @@
 
 
 <!-- Modifying Mode -->
-<div class=" h-[203px] w-[270px] ml-auto mr-auto border-2 border-gray-300 bg-slate-200" *ngIf="image!==undefined && image!=='string' ">
+<div class=" w-[244px] h-[224px] ml-auto mr-auto border-2 border-gray-300 bg-slate-200" *ngIf="image!==undefined && image!=='string' ">
     <mat-radio-group aria-label="Select an option">
         <div class="flex flex-wrap w-full">
 
@@ -43,7 +43,7 @@
                 <div *ngIf="uploaded" class="relative">
 
                     <img [src]="previewUrl===null?'http://localhost:5228/'+folder+'/'+image : previewUrl"  alt="Image Preview"
-                    class="bg-cover  w-[270px] h-[200px]   "  />
+                    class="bg-cover   w-[244px] h-[224px] "  />
 
                     <div class="absolute top-0 right-0 flex items-center justify-center">
                         <button mat-icon-button color="warn" (click)="remove()" type="button">

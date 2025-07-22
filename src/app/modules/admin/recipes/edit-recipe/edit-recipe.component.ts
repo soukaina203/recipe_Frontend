@@ -11,6 +11,7 @@ import { Category } from 'app/models/Category';
 import { Recipe } from 'app/models/Recipe';
 import { UploadComponent } from '../../upload/upload.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Like } from 'app/models/LIke';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -29,7 +30,8 @@ export class EditRecipeComponent {
     categories: Category[] = []
 
     myForm: FormGroup;
-
+    comments:Comment[]=[]
+    likes:Like[]=[]
 
     constructor(
         private uow: UowService,
@@ -52,14 +54,15 @@ export class EditRecipeComponent {
         }
         this.id = this.route.snapshot.paramMap.get('id');
 
-        this.uow.recipes.getOne(this.id).subscribe((res) => {
-            this.recipe = res;
-            this.createForm(); // Create the form after the user data is available
+        this.uow.recipes.getOne(this.id).subscribe((res:any) => {
+            this.recipe = res.recipe;
+            this.comments=res.comments;
+            this.likes=res.likes;
+            this.createForm();
 
         });
         this.uow.categories.getAll().subscribe((res: any) => {
             this.categories = res
-            console.log(this.categories)
         })
 
     }

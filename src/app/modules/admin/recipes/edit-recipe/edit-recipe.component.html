@@ -18,7 +18,8 @@
                         </h1>
 
                         <div class="flex items-center justify-center ">
-                            <app-upload [image]="recipe.image" [folder]="'recipes'" (dataEvent)="receiveData($event)"></app-upload>
+                            <app-upload [image]="recipe.image" [folder]="'recipes'"
+                                (dataEvent)="receiveData($event)"></app-upload>
 
                         </div>
 
@@ -43,55 +44,31 @@
 
 
                     <div class="flex">
-                        <mat-form-field
-                            [ngClass]="formFieldHelpers"
-                            class="flex-auto">
+                        <mat-form-field [ngClass]="formFieldHelpers" class="flex-auto">
                             <mat-label>Description</mat-label>
-                            <textarea
-                                matInput
-                                cdkTextareaAutosize
-                                formControlName="description"
+                            <textarea matInput cdkTextareaAutosize formControlName="description"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon
-                                class="icon-size-5"
-                                matSuffix
-                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
                         </mat-form-field>
                     </div>
 
 
                     <div class="flex">
-                        <mat-form-field
-                            [ngClass]="formFieldHelpers"
-                            class="flex-auto">
+                        <mat-form-field [ngClass]="formFieldHelpers" class="flex-auto">
                             <mat-label>Ingredients</mat-label>
-                            <textarea
-                                matInput
-                                cdkTextareaAutosize
-                                formControlName="ingredients"
+                            <textarea matInput cdkTextareaAutosize formControlName="ingredients"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon
-                                class="icon-size-5"
-                                matSuffix
-                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
                         </mat-form-field>
                     </div>
 
 
                     <div class="flex">
-                        <mat-form-field
-                            [ngClass]="formFieldHelpers"
-                            class="flex-auto">
+                        <mat-form-field [ngClass]="formFieldHelpers" class="flex-auto">
                             <mat-label>Instructions</mat-label>
-                            <textarea
-                                matInput
-                                cdkTextareaAutosize
-                                formControlName="instructions"
+                            <textarea matInput cdkTextareaAutosize formControlName="instructions"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon
-                                class="icon-size-5"
-                                matSuffix
-                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
                         </mat-form-field>
                     </div>
 
@@ -109,6 +86,59 @@
                     </div>
 
 
+                    <div class="flex flex-col flex-auto w-full min-w-0 mt-2">
+
+                        <!-- Main -->
+                        <div class="flex flex-col items-center ">
+                            <div class="flex flex-col w-full max-w-4xl">
+
+                                <div class="text-4xl font-extrabold leading-tight tracking-tight sm:text-4xl">
+
+                                </div>
+<!-- Likes -->
+                                <mat-accordion class="max-w-full mt-8">
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                                <mat-panel-title class="font-medium leading-tight"> ({{likes.length}}) Likes Related To
+                                                    This Recipe </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <ng-container *ngFor="let like of likes; trackBy: trackByFn">
+                                                <h1 class="flex items-center mb-2 space-x-2">
+                                                    <mat-icon class="text-red-500 icon-size-5" [svgIcon]="'heroicons_solid:heart'"></mat-icon>
+                                                    <span>{{like?.user.nom}} {{like?.user.prenom}}</span>
+                                                </h1>
+
+                                            </ng-container>
+                                        </mat-expansion-panel>
+                                </mat-accordion>
+
+
+                                <mat-accordion class="max-w-full mt-8">
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                            <mat-panel-title class="font-medium leading-tight">({{comments.length}}) Comments Related To
+                                                This Recipe </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <ng-container *ngFor="let comment of comments; trackBy: trackByFn">
+                                            <h1 class="flex items-center mb-2 space-x-2">
+
+                                                <img [src]="comment.user.image==='string'?
+                                                'assets/images/pics/blank.png'
+                                                 : 'http://localhost:5228/users/'+comment.user.image"
+                                                class="w-8 h-8 mr-2 rounded-full" />
+
+
+                                                <span>{{comment.content }}</span>
+                                            </h1>
+
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                            </mat-accordion>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div
                         class="flex items-center py-4 pl-1 pr-4 mt-10 -mx-6 border-t sm:-mx-12 sm:pr-12 sm:pl-7 bg-gray-50 dark:bg-transparent">
                         <!-- Delete -->
@@ -123,6 +153,8 @@
                             Enregistrer
                         </button>
                     </div>
+
+
                 </form>
             </div>
         </div>
