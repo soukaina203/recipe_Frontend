@@ -7,7 +7,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'profile',
         title: 'Profile',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : 'heroicons_outline:user',
         link : 'admin/profile'
     },
 
@@ -15,14 +15,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'home',
         title: 'Home',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : 'heroicons_outline:home',
         link : 'user/Recipes'
     },
     {
         id   : 'profile1',
         title: 'Profile',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : 'heroicons_outline:user',
         link : 'user/profile'
     },
 
@@ -30,14 +30,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'likedRecipes',
         title: 'Liked Recipes',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : 'heroicons_outline:bookmark',
         link : 'user/likedRecipes'
     },
     {
         id   : 'users',
         title: 'Users',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : 'heroicons_outline:users',
         link : 'admin/users'
     },
 
