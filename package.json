@@ -11,7 +11,9 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "prod": "ng build --progress --configuration=production --output-path dist"
+        "prod": "ng build --progress --configuration=production --output-path dist",
+        "image":"docker build --no-cache  -t recipe-frontend . ",
+        "container":"docker run -d --name recipe-frontend-container -p 4200:4200 recipe-frontend"
 
     },
     "dependencies": {

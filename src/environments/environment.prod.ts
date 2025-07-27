@@ -1,4 +1,4 @@
-const URL_PROD = `http://localhost:5122`;
+const URL_PROD = `https://infov3-api.dev.com`;
 
 
 export const environment = {
