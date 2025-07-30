@@ -55,7 +55,7 @@ export class EditRecipeComponent {
         this.id = this.route.snapshot.paramMap.get('id');
 
         this.uow.recipes.getOne(this.id).subscribe((res:any) => {
-            this.recipe = res;
+            this.recipe = res.recipe;
             console.log("=========")
             console.log(res)
             this.comments=res.comments;

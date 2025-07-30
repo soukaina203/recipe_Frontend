@@ -95,12 +95,14 @@
                                 <div class="text-4xl font-extrabold leading-tight tracking-tight sm:text-4xl">
 
                                 </div>
-<!-- Likes -->
+
+                                <!-- Likes -->
                                 <mat-accordion class="max-w-full mt-8">
                                         <mat-expansion-panel>
                                             <mat-expansion-panel-header [collapsedHeight]="'56px'">
-                                                <mat-panel-title class="font-medium leading-tight"> ({{likes.length}}) Likes Related To
+                                                <mat-panel-title  class="font-medium leading-tight"> ({{likes.length}}) Likes Related To
                                                     This Recipe </mat-panel-title>
+
                                             </mat-expansion-panel-header>
                                             <ng-container *ngFor="let like of likes; trackBy: trackByFn">
                                                 <h1 class="flex items-center mb-2 space-x-2">
