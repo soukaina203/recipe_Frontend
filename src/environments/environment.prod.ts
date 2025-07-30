@@ -1,4 +1,4 @@
-const URL_PROD = `dish-api.cloud.dev-solus.com`;
+const URL_PROD = `https://dish-api.cloud.dev-solus.com`;
 
 
 export const environment = {
