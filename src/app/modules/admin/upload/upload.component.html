@@ -42,7 +42,7 @@
 
                 <div *ngIf="uploaded" class="relative">
 
-                    <img [src]="previewUrl===null?'http://localhost:5228/'+folder+'/'+image : previewUrl"  alt="Image Preview"
+                    <img [src]="previewUrl===null?picture+folder+'/'+image : previewUrl"  alt="Image Preview"
                     class="h-[230px] rounded-full w-[230px]"  />
 
                     <div class="absolute top-0 right-0 flex items-center justify-center">

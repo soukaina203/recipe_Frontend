@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angu
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MatModule } from 'app/mat.module';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-upload',
@@ -14,6 +15,8 @@ export class UploadComponent {
     selectedFile: File | null = null;
     previewUrl: any = null;
     imageUrl = ""
+    picture:string=environment.url
+
     isLoading: boolean = false
     @Output () dataEvent = new EventEmitter<any> ();
     @Input () image :string;

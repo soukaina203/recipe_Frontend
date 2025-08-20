@@ -18,6 +18,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserService } from 'app/services/user.service';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
+import { environment } from 'environments/environment';
 @Component({
     selector: 'app-users',
     standalone: true,
@@ -35,6 +36,7 @@ import { MatModule } from 'app/mat.module';
 export class UsersComponent {
     @ViewChild('recentTransactionsTable', { read: MatSort })
     recentTransactionsTableMatSort: MatSort;
+    picture:string=environment.url
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     searchValue: string = '';

@@ -18,6 +18,7 @@ import { UserService } from 'app/services/user.service';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
 import { Category } from 'app/models/Category';
+import { environment } from 'environments/environment';
 @Component({
   selector: 'app-categories',
   standalone: true,
@@ -39,6 +40,7 @@ export class CategoriesComponent {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     categories$: Observable<Category[]>;
     searchValue: string = '';
+    picture:string=environment.url
 
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);

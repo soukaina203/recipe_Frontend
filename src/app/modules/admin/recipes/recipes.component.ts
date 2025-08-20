@@ -18,6 +18,7 @@ import { UserService } from 'app/services/user.service';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatModule } from 'app/mat.module';
 import { Recipe } from 'app/models/Recipe';
+import { environment } from 'environments/environment';
 @Component({
   selector: 'app-recipes',
   standalone: true,
@@ -35,7 +36,7 @@ import { Recipe } from 'app/models/Recipe';
 export class RecipesComponent {
     @ViewChild('recentTransactionsTable', { read: MatSort })
     recentTransactionsTableMatSort: MatSort;
-
+    picture:string=environment.url
     @ViewChild(MatPaginator) paginator: MatPaginator;
     count = 0;
     paginatorEvent = new Subject<PageEvent>(/*{ pageIndex: 0, pageSize: 5, length: 0 }*/);
@@ -87,6 +88,7 @@ export class RecipesComponent {
     }
 
     search() {
+
         // Implement your search logic here
         if (this.searchValue === "") {
             this.recentTransactionsDataSource.data = this.permanentData.data
