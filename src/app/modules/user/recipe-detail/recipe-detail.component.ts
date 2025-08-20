@@ -8,6 +8,7 @@ import { Recipe } from 'app/models/Recipe';
 import { Like } from 'app/models/LIke';
 import { commentaire } from 'app/models/Comment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'app-recipe-detail',
@@ -23,11 +24,12 @@ export class RecipeDetailComponent {
 
     private sanitizer=inject(DomSanitizer)
 
-
+    imageUrl : string=environment.url
     id: any = this.route.snapshot.paramMap.get('id');
     component = this.route.snapshot.paramMap.get('component');
 
-    recipe = new Recipe(); // Initialize the user object
+    recipe 
+
     isLiked: boolean = false;
     linkesCount: number
     commentCount: number
@@ -66,10 +68,12 @@ export class RecipeDetailComponent {
             this.connectedUser = JSON.parse(localStorage1)
         }
 
-        this.uow.recipes.getOne(this.id).subscribe((res) => {
+        this.uow.recipes.getOne(this.id).subscribe((res:any) => {
+            console.log("-==========")
+            console.log(res)
             this.recipe = res;
-            this.safeIngredients = this.sanitizer.bypassSecurityTrustHtml(this.convertNewlinesToBreaks(res.ingredients));
-            this.safeInstructions = this.sanitizer.bypassSecurityTrustHtml(this.convertNewlinesToBreaks(res.instructions));
+            this.safeIngredients = this.sanitizer.bypassSecurityTrustHtml(this.convertNewlinesToBreaks(res.recipe.ingredients));
+            this.safeInstructions = this.sanitizer.bypassSecurityTrustHtml(this.convertNewlinesToBreaks(res.recipe.instructions));
 
         });
 

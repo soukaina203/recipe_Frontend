@@ -28,7 +28,7 @@
                                 <mat-form-field class="flex-auto ">
                                     <mat-label>Title</mat-label>
                                     <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                        [svgIcon]="'heroicons_solid:cake'"></mat-icon>
 
                                     <input matInput formControlName="title">
 
@@ -53,10 +53,7 @@
                                 cdkTextareaAutosize
                                 formControlName="description"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon
-                                class="icon-size-5"
-                                matSuffix
-                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+
                         </mat-form-field>
                     </div>
 
@@ -71,10 +68,7 @@
                                 cdkTextareaAutosize
                                 formControlName="ingredients"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon
-                                class="icon-size-5"
-                                matSuffix
-                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+
                         </mat-form-field>
                     </div>
 
@@ -89,10 +83,7 @@
                                 cdkTextareaAutosize
                                 formControlName="instructions"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon
-                                class="icon-size-5"
-                                matSuffix
-                                [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+
                         </mat-form-field>
                     </div>
 
@@ -102,7 +93,7 @@
                         <mat-form-field class="w-full mt-2 " [subscriptSizing]="'dynamic'">
                             <mat-label>Categories</mat-label>
                             <mat-select [formControlName]="'idCategory'">
-                                <ng-container *ngFor="let category of categories.items">
+                                <ng-container *ngFor="let category of categories">
                                     <mat-option [value]="category.id">{{category.nom}}</mat-option>
                                 </ng-container>
                             </mat-select>

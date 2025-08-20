@@ -76,6 +76,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
             this.user = JSON.parse(localStorage1)
             this.uow.users.getOne(this.user.id).subscribe((res)=>{
                 this.user=res
+                localStorage.setItem('user',JSON.stringify(this.user))
             })
         }
        this.uow.users.user$.subscribe((res)=>{

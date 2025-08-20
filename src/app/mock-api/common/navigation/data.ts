@@ -30,7 +30,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'likedRecipes',
         title: 'Liked Recipes',
         type : 'basic',
-        icon : 'heroicons_outline:bookmark',
+        icon : 'heroicons_outline:heart',
         link : 'user/likedRecipes'
     },
     {
@@ -45,7 +45,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'recipes',
         title: 'Recipes',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : 'heroicons_outline:cake',
         link : 'admin/recipes'
     },
 
@@ -53,7 +53,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'categories',
         title: 'Categories',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : 'heroicons_outline:squares-2x2',
         link : 'admin/categories'
     },
 ];

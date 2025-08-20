@@ -22,22 +22,22 @@
 
             </div>
             <div class="mt-2 text-4xl font-extrabold leading-tight text-[#D0A614] tracking-tight sm:text-7xl">
-                {{ recipe.title }}
+                {{ recipe?.recipe.title }}
             </div>
             <span class="font-semibold text-[#376F00]  ">Category : {{ recipe?.category?.nom }}</span>
             <div class="mt-1 tracking-tight sm:text-2xl text-secondary">
-                {{ recipe.description }}
+                {{ recipe.recipe.description }}
             </div>
 
             <!-- Guide -->
             <div class="mt-8 prose-sm prose sm:mt-2 max-w-none" [innerHTML]>
                 <div class="relative mb-4">
-                    <img class="object-cover w-full h-96" [src]="
-                            recipe.image === 'string'
-                                ? 'assets/images/pics/blank.png'
-                                : 'http://localhost:5228/recipes/' +
-                                  recipe.image
-                        " alt="Card cover image" />
+                    <img class="object-cover w-full h-96"
+                    [src]="recipe.image === 'string'
+                       ? 'assets/images/pics/blank.png'
+                       : imageUrl + '/recipes/' + recipe.recipe.image"
+                    alt="Card cover image" />
+
                 </div>
                 <div class="flex items-center mx-3 sm:mx-5">
                     <button *ngIf="isLiked" (click)="LikeARecipe()" class="px-3 mr-1" mat-button>
@@ -112,10 +112,10 @@
                 </div>
                 <div class="flex flex-col">
                     <h2 class="font-semibold">Ingredients</h2>
-                    <p class="font-semibold1">{{ recipe.ingredients }}</p>
+                    <p class="font-semibold1">{{ recipe.recipe.ingredients }}</p>
 
                     <h2 class="font-semibold1">Instructions</h2>
-                    <p class="font-semibold1">{{ recipe.instructions }}</p>
+                    <p class="font-semibold1">{{ recipe.recipe.instructions }}</p>
                   </div>
 
                 <!-- Next -->

@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { User } from 'app/models/User';
 
 @Component({
     selector     : 'example',
@@ -8,10 +9,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class ExampleComponent
 {
-    /**
-     * Constructor
-     */
-    constructor()
-    {
+    user:User
+    ngOnInit(){
+        this.user = JSON.parse(localStorage.getItem('user'))
+
+
     }
 }
