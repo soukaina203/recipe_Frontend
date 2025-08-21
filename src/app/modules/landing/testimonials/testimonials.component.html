@@ -15,7 +15,7 @@
         <div *ngFor="let comment of comments$ | async; let index = index"
              [ngClass]="{'w-[30rem]': isLargeScreen, 'w-full': !isLargeScreen}"
              class="flex flex-col items-center flex-shrink-0 shadow-lg bg-black/85 rounded-tl-[206.22px] rounded-br-[206px] p-4">
-          <img [src]="comment?.user.image === 'string' ? 'assets/images/pics/blank.png' : 'http://localhost:5228/users/' + comment?.user.image"
+          <img [src]="comment?.user.image === 'string' ? 'assets/images/pics/blank.png' : userPics+'/users/' + comment?.user.image"
                class="w-32 h-32 mt-auto mb-auto rounded-full">
           <div class="mt-4 text-center">
             <h2 class="lg:max-w-[19rem] md:w-[17rem] w-full mb-2 font-semibold text-black text-lg font-Yantramanav-Black">{{comment.content}}</h2>

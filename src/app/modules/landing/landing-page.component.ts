@@ -8,6 +8,7 @@ import { FlavorsComponent } from './flavors/flavors.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { CtaComponent } from './cta/cta.component';
 import { FooterComponent } from './footer/footer.component';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-landing-page',
@@ -19,4 +20,5 @@ import { FooterComponent } from './footer/footer.component';
 })
 export class LandingPageComponent {
 
+    recipePicture=environment.url
 }

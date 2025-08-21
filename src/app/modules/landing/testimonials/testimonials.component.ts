@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UowService } from 'app/services/uow.service';
 import { take } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-testimonials',
@@ -13,6 +14,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./testimonials.component.scss']
 })
 export class TestimonialsComponent {
+    userPics=environment.url
 
     comments$:Observable<Comment[]>;
     private uow =inject(UowService)

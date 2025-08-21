@@ -17,7 +17,7 @@
             <ng-container *ngIf="recipe.image">
               <img
                 class="absolute inset-x-0 top-0 object-cover w-full h-full ml-auto mr-auto -translate-y-1/2 rounded-tl-[20px] rounded-br-[20px]"
-                [src]="recipe.image === 'string' ? 'assets/images/pics/blank.png' : 'http://localhost:5228/recipes/' + recipe.image">
+                [src]="recipe.image === 'string' ? 'assets/images/pics/blank.png' : recipePicture+'/recipes/' + recipe.image">
             </ng-container>
             <!-- Title and Description -->
             <div class="relative pt-28">
