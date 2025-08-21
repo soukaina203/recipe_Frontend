@@ -5,6 +5,7 @@ import { Recipe } from 'app/models/Recipe';
 import { UowService } from 'app/services/uow.service';
 import { RouterLink } from '@angular/router';
 import { User } from 'app/models/User';
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'app-liked-recipes',
@@ -17,7 +18,7 @@ export class LikedRecipesComponent {
 
     private uow = inject(UowService)
     recipes$: Observable<Recipe[]>;
-
+    recipeImg=environment.url
     ngOnInit(): void {
 
         const localStorage1 = localStorage.getItem('user');

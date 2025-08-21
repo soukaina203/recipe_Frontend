@@ -1,5 +1,7 @@
 <div class="flex flex-col flex-auto p-6 md:p-8">
-
+    <div class="mt-2 text-4xl font-extrabold leading-tight text-[#D0A614] tracking-tight sm:text-7xl">
+       Liked Recipes
+    </div>
 <ng-container *ngIf="recipes$ | async as recipes; else loading">
     <ng-container *ngIf="recipes.length > 0; else noNotes">
         <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 sm:mt-10">
@@ -12,7 +14,7 @@
                         <ng-container *ngIf="note.image">
                             <img
                                 class="object-cover w-full h-48"
-                                [src]="note.image === 'string' ? 'assets/images/pics/blank.png' : 'http://localhost:5228/recipes/' + note.image">
+                                [src]="note.image === 'string' ? 'assets/images/pics/blank.png' : recipeImg+'/recipes/' + note.image">
                         </ng-container>
                         <div class="flex flex-col flex-auto p-6 space-y-4">
                             <!-- Title -->

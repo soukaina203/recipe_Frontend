@@ -10,6 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterLink } from '@angular/router';
 import { FuseMasonryComponent } from '@fuse/components/masonry';
 import { UowService } from 'app/services/uow.service';
+import { environment } from 'environments/environment';
 import { combineLatest,  map, merge, shareReplay, startWith, Subject, switchMap } from 'rxjs';
 
 @Component({
@@ -37,7 +38,7 @@ export class NotesListComponent   {
     drawerOpened: boolean = true;
     filterStatus = ''
     searchValue: string = '';
-
+    recipePicture=environment.url
     private uow = inject(UowService)
 
     readonly categories$ = this.uow.categories.getAll()
