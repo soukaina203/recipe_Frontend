@@ -28,7 +28,7 @@
                                 <mat-form-field class="flex-auto ">
                                     <mat-label>Title</mat-label>
                                     <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                        [svgIcon]="'heroicons_solid:cake'"></mat-icon>
 
                                     <input matInput formControlName="title">
 
@@ -48,7 +48,6 @@
                             <mat-label>Description</mat-label>
                             <textarea matInput cdkTextareaAutosize formControlName="description"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
                         </mat-form-field>
                     </div>
 
@@ -58,7 +57,6 @@
                             <mat-label>Ingredients</mat-label>
                             <textarea matInput cdkTextareaAutosize formControlName="ingredients"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
                         </mat-form-field>
                     </div>
 
@@ -68,7 +66,6 @@
                             <mat-label>Instructions</mat-label>
                             <textarea matInput cdkTextareaAutosize formControlName="instructions"
                                 [cdkAutosizeMinRows]="3"></textarea>
-                            <mat-icon class="icon-size-5" matSuffix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
                         </mat-form-field>
                     </div>
 
@@ -126,7 +123,7 @@
 
                                                 <img [src]="comment.user.image==='string'?
                                                 'assets/images/pics/blank.png'
-                                                 : 'http://localhost:5228/users/'+comment.user.image"
+                                                 : userPic+'/users/'+comment.user.image"
                                                 class="w-8 h-8 mr-2 rounded-full" />
 
 

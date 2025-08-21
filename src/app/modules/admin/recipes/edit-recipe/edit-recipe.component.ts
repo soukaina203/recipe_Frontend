@@ -12,6 +12,7 @@ import { Recipe } from 'app/models/Recipe';
 import { UploadComponent } from '../../upload/upload.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Like } from 'app/models/LIke';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -28,7 +29,7 @@ export class EditRecipeComponent {
     selectedFile: File = null;
     imageUrl = ""
     categories: Category[] = []
-
+    userPic=environment.url
     myForm: FormGroup;
     comments:Comment[]=[]
     likes:Like[]=[]
